@@ -1,0 +1,3 @@
+contrast	rmats_group1	rmats_group2	group1_n	group2_n	reported_delta	inference
+disease	SMA untreated	Control untreated	6	9	SMA - Control	unpaired
+treatment	R6-MO	Scramble	8	8	R6-MO - Scramble	unpaired; donor-line consistency checked in R

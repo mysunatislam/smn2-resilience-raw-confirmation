@@ -1,0 +1,6 @@
+event_type	events	source	file	md5
+ES	35	official disease workbook filtered by strict corrected set	fromGTF.SE.txt	3590bc735c0ced65a188b6744f052d0f
+A5SS	6	official disease workbook filtered by strict corrected set	fromGTF.A5SS.txt	318d75ab9614f22f7cdefa1d9233a1e6
+A3SS	5	official disease workbook filtered by strict corrected set	fromGTF.A3SS.txt	8780b663c52abee2c5d9e27280420587
+MXE	22	official disease workbook filtered by strict corrected set	fromGTF.MXE.txt	51f497d742818cc2869b953fd4d7b5ba
+RI	15	official disease workbook filtered by strict corrected set	fromGTF.RI.txt	4cfe76abb656d1814dd88c0573cf32b0

@@ -1,0 +1,10 @@
+accession	role	organism	geo_samples	assay	biological_material	processed_file
+GSE93939	natural_resistance_anchor	Homo sapiens	39	bulk RNA-seq, LCM	Post-mortem oculomotor, spinal motor, and Onuf motor neurons	GSE93939_GEO_counts_human_LCM.xlsx
+GSE290979	human_sma_disease_and_smn_response	Homo sapiens	31	bulk RNA-seq	Spinal-cord organoids from 3 control and 2 SMA donor lines	GSE290979_count_matrix.txt.gz
+GSE108094	external_ipsc_sma_motor_neuron_validation	Homo sapiens	8	bulk RNA-seq	iPSC-derived spinal motor neurons from 2 control and 2 SMA lines	GSE108094_gene_exp.diff.gz
+GSE69175	external_purified_sma_motor_neuron_sensitivity	Homo sapiens	4	bulk RNA-seq	Purified motor neurons from 1 control iPSC line and 1 SMA type I patient iPSC line, each with 2 libraries	GSE69175_gene_exp.txt.gz
+GSE290980	same_study_sma_cell_resolved_context	Homo sapiens	8	single-cell RNA-seq	Spinal-cord organoids from 2 control and 2 SMA donor lines; 27114 cells	Supplementary_Data_4_and_5.xlsx
+GSE243076	independent_adult_spinal_motor_neuron_localization	Homo sapiens	9	single-nucleus RNA-seq	Adult spinal cord from 9 independent donors; author-defined C20 motor-neuron cluster	GSE243076_RAW.tar;elife-92046-supp1-v1.xlsx
+EGAD00001011259	controlled_access_future_sma_single_cell_validation	Homo sapiens	8	single-cell RNA-seq	Isogenic iPSC-derived SMA and control motor-neuron differentiation at days 4, 20, and 40	controlled_access_EGA
+GSE115706	secondary_mouse_mechanism	Mus musculus	168	bulk RNA-seq, LCM	Discrete neuronal populations across delta7 SMA progression	GSE115706_rpkms_SMA_LCMseq.txt.gz
+GSE208629	secondary_mouse_single_cell	Mus musculus	2	single-cell RNA-seq	Severe SMA and control spinal cord	GSE208629_RAW.tar

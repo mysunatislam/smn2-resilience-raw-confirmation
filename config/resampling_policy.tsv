@@ -1,0 +1,10 @@
+accession	analysis	unit	method	folds	status	reason
+GSE93939	OMN_vs_spinal_primary	donor	LODO_donor_jackknife	19	ESTIMABLE	All libraries from one donor are omitted together and the adjusted model is refit.
+GSE93939	OMN_vs_spinal_HiSeq2000	donor	LODO_donor_jackknife	13	ESTIMABLE	Same-platform donor-level sensitivity with one complete donor omitted per fold.
+GSE290979	SMA_vs_control_disease	donor_line	LOLO_line_jackknife	5	ESTIMABLE	One complete iPSC donor line and all of its libraries are omitted per fold.
+GSE290979	R6_vs_scramble_treatment	donor_line	linewise_replication	2	NOT_FORMALLY_ESTIMABLE	LOLO leaves one paired line and zero residual biological replication; report separate S2 and S3 effects instead.
+GSE108094	SMA_vs_control_disease	donor_line	LOLO_line_jackknife	4	RAW_REANALYSIS_REQUIRED	The public processed Cuffdiff table contains group-level effects rather than sample-level counts.
+GSE69175	SMA_vs_control_disease	donor_line	LOLO_line_jackknife	0	STRUCTURALLY_NOT_ESTIMABLE	One control line and one SMA line; omitting either line removes a genotype.
+GSE290980	motor_neuron_SMA_vs_control	donor_line	LOLO_line_jackknife	4	RAW_CELL_MATRIX_REQUIRED	Current public supplementary input contains author pseudobulk effects rather than line-level count matrices.
+GSE243076	adult_motor_neuron_localization	donor	LODO_donor_jackknife	0	NOT_APPLICABLE	Independent localization atlas has no SMA disease contrast.
+CROSS_MODEL	candidate_ranking	dataset	LODO_dataset_sensitivity	3	ESTIMABLE	Recompute ranks after omitting GSE93939, GSE290979, or GSE108094 as an evidence source.
