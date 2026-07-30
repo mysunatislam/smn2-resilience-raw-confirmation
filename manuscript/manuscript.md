@@ -428,6 +428,64 @@ gray indicates no support. The right strip denotes publication tier.
 GSE69175, GSE290980, adult motor-neuron detection, and strict splice
 restoration are annotations and do not alter the tier.
 
+## Supplementary Figure Legends
+
+**[Supplementary Figure S1. GSE93939 donor-aware sample
+structure.](figures/supplementary_figure_S1_GSE93939_MDS.png)** MDS of
+TMM-normalized human motor-neuron libraries used for the natural-resistance
+contrast, colored by oculomotor or spinal identity.
+
+**[Supplementary Figure S2. GSE93939 primary-versus-sensitivity effect
+agreement.](figures/supplementary_figure_S2_GSE93939_sensitivity.png)**
+Genome-wide agreement between the adjusted primary oculomotor-versus-spinal
+effect and the HiSeq 2000 sensitivity analysis.
+
+**[Supplementary Figure S3. GSE290979 donor-line disease sample
+structure.](figures/supplementary_figure_S3_GSE290979_MDS.png)** MDS of the
+control and SMA donor-line pseudobulks used for the disease contrast.
+
+**[Supplementary Figure S4. Cross-model resilience
+shortlist.](figures/supplementary_figure_S4_cross_model_top25.png)** Component
+support scores for the top 25 genes in the frozen 37-gene cross-model
+candidate set.
+
+**[Supplementary Figure S5. Natural resistance versus independent SMA
+direction.](figures/supplementary_figure_S5_natural_vs_external.png)**
+Percentile agreement between GSE93939 natural resistance and the independent
+GSE108094 iPSC motor-neuron SMA-opposition signal, with ranked candidates
+highlighted.
+
+**[Supplementary Figure S6. Biological-unit and dataset-holdout
+robustness.](figures/supplementary_figure_S6_holdout_robustness.png)**
+Candidate-level support under donor, donor-line, treatment-line, and external
+dataset holdouts.
+
+**[Supplementary Figure S7. Cell-resolved GSE290980 motor-neuron disease
+effects.](figures/supplementary_figure_S7_GSE290980_MN_DEGs.png)** Largest
+positive and negative SMA-minus-control pseudobulk effects in the annotated
+motor-neuron population.
+
+**[Supplementary Figure S8. Independent adult motor-neuron cluster
+markers.](figures/supplementary_figure_S8_GSE243076_MN_markers.png)** Genes
+with the strongest expression enrichment in the audited GSE243076 C20
+motor-neuron cluster relative to other neuronal clusters.
+
+**[Supplementary Figure S9. Cell-resolved candidate
+context.](figures/supplementary_figure_S9_cell_resolved_context.png)**
+Independent adult motor-neuron enrichment plotted against the GSE290980
+motor-neuron SMA-minus-control effect for cross-model candidates.
+
+**[Supplementary Figure S10. Splicing-panel score
+components.](figures/supplementary_figure_S10_splicing_panel_components.png)**
+Effect, false-discovery, biotype, junction-support, and assay components for
+the 12-event validation panel.
+
+**[Supplementary Figure S11. Strict splicing-event validation
+priority.](figures/supplementary_figure_S11_splicing_priority.png)** Top 20
+corrected splicing events ranked by the locked validation-priority score and
+colored by event class. This is processed-data prioritization, not raw
+junction-level validation.
+
 ## Supplementary Tables
 
 **Supplementary Table S1.** Frozen cross-model candidates with original

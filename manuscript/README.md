@@ -10,14 +10,21 @@ cross-model human motor-neuron resilience analysis.
   deposited processed-matrix effect concordance.
 - `figures/figure_2_candidate_evidence_matrix.*`: evidence map for the frozen
   37-candidate set and publication tiers.
+- `figures/supplementary_figure_S1_*.png` through
+  `figures/supplementary_figure_S11_*.png`: QC, cross-model integration,
+  holdout robustness, cell-resolved context, and splicing-priority figures.
+- `supplementary_figure_index.tsv`: figure titles, evidence roles, and
+  generating R scripts.
 - `supplementary_table_S1_candidates.tsv`: candidate-level effects,
   biological-unit checks, raw confirmation, and external annotations.
 - `supplementary_table_S2_summary.tsv`: locked analysis scope and tier counts.
 - `supplementary_table_S3_concordance.tsv`: raw-versus-processed concordance
   statistics.
 
-The figures are supplied as both PNG and vector PDF. The tracked tables are
-generated from validated local results and should not be edited manually.
+The two main figures are supplied as PNG and vector PDF. Supplementary figures
+are supplied as publication-resolution PNG files. The tracked figures and
+tables are generated from validated local results and should not be edited
+manually.
 
 ## Regenerate
 

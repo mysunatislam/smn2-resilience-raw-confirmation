@@ -1,0 +1,12 @@
+figure_id	filename	title	evidence_role	generating_script
+S1	figures/supplementary_figure_S1_GSE93939_MDS.png	GSE93939 donor-aware sample structure	Natural-resistance cohort QC	r/02_gse93939_limma_voom.R
+S2	figures/supplementary_figure_S2_GSE93939_sensitivity.png	GSE93939 primary-versus-sensitivity effect agreement	Natural-resistance sensitivity analysis	r/02_gse93939_limma_voom.R
+S3	figures/supplementary_figure_S3_GSE290979_MDS.png	GSE290979 donor-line disease sample structure	SMA disease cohort QC	r/03_gse290979_edger_pseudobulk.R
+S4	figures/supplementary_figure_S4_cross_model_top25.png	Cross-model resilience shortlist	Candidate integration	r/13_cross_model_human_motor_neuron_resilience.R
+S5	figures/supplementary_figure_S5_natural_vs_external.png	Natural resistance versus independent SMA direction	External directional sensitivity	r/13_cross_model_human_motor_neuron_resilience.R
+S6	figures/supplementary_figure_S6_holdout_robustness.png	Biological-unit and dataset-holdout robustness	LODO and LOLO robustness	r/20_integrate_holdout_validation.R
+S7	figures/supplementary_figure_S7_GSE290980_MN_DEGs.png	Cell-resolved GSE290980 motor-neuron disease effects	Motor-neuron-specific SMA context	r/15_gse290980_cell_resolved_sma.R
+S8	figures/supplementary_figure_S8_GSE243076_MN_markers.png	Independent adult motor-neuron cluster markers	Independent motor-neuron identity audit	r/14_gse243076_independent_motor_neuron_atlas.R
+S9	figures/supplementary_figure_S9_cell_resolved_context.png	Cell-resolved candidate context	Cross-dataset motor-neuron context	r/16_integrate_cell_resolved_context.R
+S10	figures/supplementary_figure_S10_splicing_panel_components.png	Splicing-panel score components	Processed-data splice-event prioritization	r/11_rank_splicing_validation_events.R
+S11	figures/supplementary_figure_S11_splicing_priority.png	Strict splicing-event validation priority	Processed-data splice-event prioritization	r/11_rank_splicing_validation_events.R

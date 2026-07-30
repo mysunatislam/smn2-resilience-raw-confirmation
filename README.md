@@ -49,8 +49,10 @@ ENA runs, checksums, sample selections, and expected paths are recorded in
 - [`manuscript/supplementary_table_S1_candidates.tsv`](manuscript/supplementary_table_S1_candidates.tsv)
 - [`manuscript/supplementary_table_S2_summary.tsv`](manuscript/supplementary_table_S2_summary.tsv)
 - [`manuscript/supplementary_table_S3_concordance.tsv`](manuscript/supplementary_table_S3_concordance.tsv)
+- [`manuscript/supplementary_figure_index.tsv`](manuscript/supplementary_figure_index.tsv)
 - [`manuscript/figures/figure_1_raw_vs_processed_concordance.pdf`](manuscript/figures/figure_1_raw_vs_processed_concordance.pdf)
 - [`manuscript/figures/figure_2_candidate_evidence_matrix.pdf`](manuscript/figures/figure_2_candidate_evidence_matrix.pdf)
+- [`manuscript/figures/`](manuscript/figures/)
 
 ## Validation
 
@@ -62,9 +64,10 @@ With R 4.6.0 and the project packages installed:
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_raw_concordance.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_salmon_import.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_publication_integration.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_supplementary_figure_package.R
 ```
 
-The completed local analysis passed all five included regression tests and 66
+The completed local analysis passed all six included regression tests and 66
 full-project output checks.
 
 ## Scope
