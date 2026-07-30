@@ -1,0 +1,10 @@
+array_index	sample_id	run_accession	gsm	donor_line	genotype	treatment	replicate	analysis_group	read_pairs	fastq_bytes_total	selection_basis
+1	BULK-SAM-109	SRR32559040	GSM8826804	C1	CTRL	NT	2	CTRL_NT	81767187	10435840871	closest_to_within_line_median_read_pairs
+2	BULK-SAM-104	SRR32559042	GSM8826799	C2	CTRL	NT	3	CTRL_NT	76605566	9738508472	closest_to_within_line_median_read_pairs
+3	BULK-SAM-107	SRR32559038	GSM8826802	C3	CTRL	NT	3	CTRL_NT	79381846	10293775418	closest_to_within_line_median_read_pairs
+4	BULK-SAM-160	SRR32559021	GSM8826819	S2	SMA	NT	3	SMA_NT	70180674	9073640864	closest_to_within_line_median_read_pairs
+5	BULK-SAM-148	SRR32559034	GSM8826807	S3	SMA	NT	2	SMA_NT	65414230	8369155602	closest_to_within_line_median_read_pairs
+6	BULK-SAM-163	SRR32559019	GSM8826822	S2	SMA	Scramble	3	SMA_Scramble	79219752	10139738742	closest_to_within_line_condition_median_read_pairs
+7	BULK-SAM-151	SRR32559030	GSM8826810	S3	SMA	Scramble	2	SMA_Scramble	86930938	11536794493	closest_to_within_line_condition_median_read_pairs
+8	BULK-SAM-166	SRR32559016	GSM8826825	S2	SMA	R6-Mo	2	SMA_R6-Mo	71005635	9069794603	closest_to_within_line_condition_median_read_pairs
+9	BULK-SAM-157	SRR32559025	GSM8826816	S3	SMA	R6-Mo	4	SMA_R6-Mo	74963306	9596865495	closest_to_within_line_condition_median_read_pairs
