@@ -1,0 +1,3 @@
+contrast	matched_genes	spearman_effect_correlation	pearson_effect_correlation	direction_agreement_fraction	raw_nominal_p_lt_0_05	processed_nominal_p_lt_0_05	both_nominal_p_lt_0_05
+SMA_vs_CTRL	14636	0.778292840776912	0.783740068661343	0.80657283410768	1838	490	408
+R6-Mo_vs_Scramble	14385	0.587905715385299	0.553383236946254	0.732082029892249	578	340	130
