@@ -21,3 +21,4 @@ local_work/
 *.sra
 
 local/gse290979_raw/config.env
+local/gse290979_star_rmats/config.env

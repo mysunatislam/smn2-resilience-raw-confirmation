@@ -67,10 +67,13 @@ With R 4.6.0 and the project packages installed:
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_publication_integration.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_supplementary_figure_package.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_validation_freeze.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_workflow.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_analysis.R
 ```
 
-The completed local analysis passed all seven included regression tests and 66
-full-project output checks.
+The completed gene-level analysis passed its seven regression tests and 66
+full-project output checks. The raw splice-junction workflow adds two
+pre-execution regression tests.
 
 ## Scope
 
