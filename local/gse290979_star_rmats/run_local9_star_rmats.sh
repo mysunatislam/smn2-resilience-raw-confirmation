@@ -272,6 +272,7 @@ align_one() {
   verify_fastq_pair "${sample_id}"
 
   local r1 r2 output_directory final_bam temporary_directory partial_bam
+  local star_linux_tmp
   IFS=$'\t' read -r r1 r2 <<< "$(fastq_paths "${sample_id}")"
   output_directory="${BAM_ROOT}/${sample_id}"
   final_bam="${output_directory}/${sample_id}.star.event_loci.bam"
@@ -288,12 +289,17 @@ align_one() {
     die "Partial alignment temporary directory exists: ${temporary_directory}"
   mkdir -p "${temporary_directory}"
   partial_bam="${temporary_directory}/${sample_id}.star.event_loci.partial.bam"
+  star_linux_tmp="${STAR_LINUX_TMP_ROOT}/${sample_id}"
+  mkdir -p "${STAR_LINUX_TMP_ROOT}"
+  [[ ! -e "${star_linux_tmp}" ]] ||
+    die "Partial Linux STAR temporary directory exists: ${star_linux_tmp}"
 
   STAR \
     --runThreadN "${THREADS}" \
     --genomeDir "${STAR_INDEX}" \
     --readFilesIn "${r1}" "${r2}" \
     --readFilesCommand zcat \
+    --outTmpDir "${star_linux_tmp}" \
     --twopassMode Basic \
     --outFileNamePrefix "${temporary_directory}/star." \
     --outStd SAM \

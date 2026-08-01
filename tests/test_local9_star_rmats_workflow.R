@@ -94,11 +94,14 @@ stopifnot(
   grepl('DELETE_BAM:-0.*!= "0"', workflow),
   grepl("--fixed-event-set", workflow, fixed = TRUE),
   grepl("--outStd SAM", workflow, fixed = TRUE),
+  grepl('--outTmpDir "${star_linux_tmp}"', workflow, fixed = TRUE),
   grepl('samtools view -@ 1 -u -L "${TARGET_BED}"', workflow, fixed = TRUE),
   grepl("phase_sashimi", workflow, fixed = TRUE),
   any(configuration == "EXPECTED_STAR_VERSION=2.7.10a"),
   any(configuration == "EXPECTED_RMATS_VERSION=4.3.0"),
   any(configuration == "EXPECTED_RMATS2SASHIMIPLOT_VERSION=4.0.0"),
+  any(configuration ==
+    "STAR_LINUX_TMP_ROOT=/tmp/smn2_gse290979_star_rmats"),
   any(configuration == "DELETE_FASTQ=0"),
   any(configuration == "DELETE_BAM=0"),
   file.exists(deviation)

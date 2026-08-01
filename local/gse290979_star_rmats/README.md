@@ -14,6 +14,8 @@ checksum-verified local9 FASTQ pairs.
 - Treatment: R6-MO versus scramble in S2/S3.
 - STAR output is streamed directly into coordinate-sorted BAMs restricted to
   the 83 event loci with 1 kb padding.
+- STAR FIFO and sorting scratch files use WSL's Linux `/tmp`; NTFS does not
+  support the FIFO files required by STAR.
 - A full BAM is never created. FASTQs and retained BAMs are never deleted.
 
 The sparse STAR index is a local feasibility adaptation. It does not alter the
