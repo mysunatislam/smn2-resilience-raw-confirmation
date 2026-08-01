@@ -8,6 +8,8 @@ checksum-verified local9 FASTQ pairs.
 
 - GENCODE v47 GRCh38 primary assembly.
 - STAR 2.7.10a with a sparse local index.
+- Full-depth, annotation-guided one-pass STAR (`twopassMode=None`,
+  `readMapNumber=-1`).
 - rMATS turbo 4.3.0 with the frozen fixed-event set.
 - rmats2sashimiplot 4.0.0 for the frozen 12-event panel.
 - Disease: untreated SMA S2/S3 versus control C1/C2/C3.
@@ -19,8 +21,10 @@ checksum-verified local9 FASTQ pairs.
 - A full BAM is never created. FASTQs and retained BAMs are never deleted.
 
 The sparse STAR index is a local feasibility adaptation. It does not alter the
-reference sequence, annotation, event coordinates, or STAR alignment model,
-but it is slower than a standard human STAR index.
+reference sequence, annotation, event coordinates, or read depth, but it is
+slower than a standard human STAR index. One-pass alignment is locked because
+the confirmatory set contains annotated events already embedded in the STAR
+splice-junction database.
 
 ## Memory Gate
 

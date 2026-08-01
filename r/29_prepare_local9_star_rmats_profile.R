@@ -200,7 +200,8 @@ profile_summary <- data.frame(
     "disease_group1_sma", "disease_group2_control",
     "treatment_group1_r6", "treatment_group2_scramble",
     "fixed_events", "primary_events", "merged_target_intervals",
-    "target_padding_bp", "reference", "star_version", "rmats_version",
+    "target_padding_bp", "reference", "star_version", "star_twopass_mode",
+    "star_read_map_number", "rmats_version",
     "rmats2sashimiplot_version",
     "bam_retention", "fastq_deletion", "bam_deletion", "inference_role"
   ),
@@ -213,7 +214,7 @@ profile_summary <- data.frame(
     length(sample_lists$treatment_group2_scramble),
     nrow(frozen_events), 12L, nrow(target_intervals), padding,
     "GENCODE_v47_GRCh38_primary_assembly",
-    "2.7.10a", "4.3.0", "4.0.0",
+    "2.7.10a", "None", "-1", "4.3.0", "4.0.0",
     "streamed_event_locus_coordinate_sorted_bam",
     "FALSE", "FALSE",
     "prospective_targeted_raw_splice_junction_confirmation"

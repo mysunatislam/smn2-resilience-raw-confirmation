@@ -13,6 +13,8 @@ merged_target_intervals	73
 target_padding_bp	1000
 reference	GENCODE_v47_GRCh38_primary_assembly
 star_version	2.7.10a
+star_twopass_mode	None
+star_read_map_number	-1
 rmats_version	4.3.0
 rmats2sashimiplot_version	4.0.0
 bam_retention	streamed_event_locus_coordinate_sorted_bam

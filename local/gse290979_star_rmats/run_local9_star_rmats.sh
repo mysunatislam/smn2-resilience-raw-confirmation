@@ -300,7 +300,8 @@ align_one() {
     --readFilesIn "${r1}" "${r2}" \
     --readFilesCommand zcat \
     --outTmpDir "${star_linux_tmp}" \
-    --twopassMode Basic \
+    --twopassMode "${STAR_TWOPASS_MODE}" \
+    --readMapNumber "${STAR_READ_MAP_NUMBER}" \
     --outFileNamePrefix "${temporary_directory}/star." \
     --outStd SAM \
     --outSAMtype SAM \
@@ -338,6 +339,8 @@ align_one() {
     printf 'sample_id\t%s\n' "${sample_id}"
     printf 'completed_utc\t%s\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
     printf 'STAR_version\t%s\n' "$(STAR --version)"
+    printf 'STAR_twopass_mode\t%s\n' "${STAR_TWOPASS_MODE}"
+    printf 'STAR_read_map_number\t%s\n' "${STAR_READ_MAP_NUMBER}"
     printf 'retention\tevent_loci_only_streamed_from_STAR_SAM\n'
     printf 'full_BAM_created\tFALSE\n'
     printf 'FASTQ_deleted\tFALSE\n'
