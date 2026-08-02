@@ -77,6 +77,12 @@ bash local/gse290979_star_rmats/run_local9_star_rmats.sh rmats
 bash local/gse290979_star_rmats/run_local9_star_rmats.sh sashimi
 ```
 
+For a multi-day local cohort, schedule
+`local/gse290979_star_rmats/run_remaining_cohort.cmd` with Windows Task
+Scheduler. The scheduler must own the foreground `wsl.exe` process; a
+detached Linux process alone does not keep WSL alive between desktop task
+transitions.
+
 Then run the frozen R analysis:
 
 ```powershell

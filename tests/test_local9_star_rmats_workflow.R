@@ -74,6 +74,12 @@ bootstrap_path <- file.path(
   "gse290979_star_rmats",
   "bootstrap_wsl_tools.sh"
 )
+windows_launcher_path <- file.path(
+  ROOT,
+  "local",
+  "gse290979_star_rmats",
+  "run_remaining_cohort.cmd"
+)
 configuration_path <- file.path(
   ROOT,
   "local",
@@ -82,6 +88,10 @@ configuration_path <- file.path(
 )
 workflow <- paste(readLines(workflow_path, warn = FALSE), collapse = "\n")
 bootstrap <- paste(readLines(bootstrap_path, warn = FALSE), collapse = "\n")
+windows_launcher <- paste(
+  readLines(windows_launcher_path, warn = FALSE),
+  collapse = "\n"
+)
 configuration <- readLines(configuration_path, warn = FALSE)
 deviation <- file.path(
   ROOT,
@@ -92,6 +102,7 @@ deviation <- file.path(
 stopifnot(
   !grepl("(^|\\n)[[:space:]]*rm[[:space:]]", workflow),
   !grepl("(^|\\n)[[:space:]]*rm[[:space:]]", bootstrap),
+  !grepl("(^|\\n)[[:space:]]*(del|erase)[[:space:]]", windows_launcher),
   grepl('DELETE_FASTQ:-0.*!= "0"', workflow),
   grepl('DELETE_BAM:-0.*!= "0"', workflow),
   grepl("--fixed-event-set", workflow, fixed = TRUE),
@@ -101,6 +112,11 @@ stopifnot(
   grepl('--outTmpDir "${star_linux_tmp}"', workflow, fixed = TRUE),
   grepl('samtools view -@ 1 -u -L "${TARGET_BED}"', workflow, fixed = TRUE),
   grepl("phase_sashimi", workflow, fixed = TRUE),
+  grepl(
+    "run_local9_star_rmats.sh align",
+    windows_launcher,
+    fixed = TRUE
+  ),
   any(configuration == "EXPECTED_STAR_VERSION=2.7.10a"),
   any(configuration == "STAR_TWOPASS_MODE=None"),
   any(configuration == "STAR_READ_MAP_NUMBER=-1"),
