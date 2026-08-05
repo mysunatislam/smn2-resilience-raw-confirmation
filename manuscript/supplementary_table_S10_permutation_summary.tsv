@@ -1,0 +1,3 @@
+test	observed	permutations	null_mean	null_median	null_q025	null_q975	null_at_least_observed	empirical_p_value
+frozen_37_complete_pattern	37	10000	42.3671	42	31	55	8357	0.835716428357164
+raw_processed_robust_overlap_4	4	10000	1.7049	2	0	4	440	0.0440955904409559

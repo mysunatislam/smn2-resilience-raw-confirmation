@@ -16,6 +16,9 @@ cross-model human motor-neuron resilience analysis.
   `figures/sashimi/supplementary_figure_S23_*.png`: QC, cross-model
   integration, holdout robustness, cell-resolved context, splicing priority,
   and the 12-event raw sashimi panel.
+- `figures/supplementary_figure_S24_*` and
+  `figures/supplementary_figure_S25_*`: permutation nulls and
+  biological-unit bootstrap stability.
 - `supplementary_figure_index.tsv`: figure titles, evidence roles, and
   generating R scripts.
 - `supplementary_table_S1_candidates.tsv`: candidate-level effects,
@@ -26,6 +29,11 @@ cross-model human motor-neuron resilience analysis.
 - `supplementary_table_S4_*.tsv` through `supplementary_table_S9_*.tsv`:
   targeted raw splice results, mismatch reasons, support, summary, and
   provenance.
+- `supplementary_table_S10_*.tsv` through `supplementary_table_S15_*.tsv`:
+  permutation, negative-control, score-sensitivity, and biological-unit
+  bootstrap results.
+- `audit/`: iteration-level permutation and bootstrap records, provenance,
+  and completion markers.
 - `figures/sashimi/`: PDF and PNG raw-junction plots for all 12 frozen primary
   events.
 
@@ -41,6 +49,8 @@ From the repository root:
 ```powershell
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\28_integrate_local9_salmon_publication.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\06_validate_outputs.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\33_cross_model_permutation_sensitivity.R --integration-table=PATH --output-root=PATH
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\34_biological_unit_bootstrap.R --data-root=PATH --integration-table=PATH --output-root=PATH
 ```
 
 The first command requires the completed local9 Salmon outputs under
@@ -54,4 +64,6 @@ The completed raw analysis includes all-nine, checksum-verified Salmon
 transcriptome re-quantification and targeted STAR-rMATS junction confirmation
 of the frozen splice loci. It is not independent cohort validation, complete
 31-library splice discovery, or SMN1-versus-SMN2 allele-specific
-quantification.
+quantification. The 37-gene count is not permutation-enriched; the stronger
+computational result is reproducibility of the four-gene raw/processed
+unit-robust overlap and its biological-unit bootstrap stability.

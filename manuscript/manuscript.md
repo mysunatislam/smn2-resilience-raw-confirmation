@@ -23,6 +23,9 @@ cell-resolved context and independent adult spinal motor-neuron localization,
 respectively. Models were fitted within datasets and integrated only after
 effect orientation and HGNC symbol harmonization. Candidate robustness was
 tested by leave-one-donor, leave-one-line, and leave-one-dataset-out analyses.
+Gene-identity permutation, biological-unit cluster bootstrap, negative-control
+direction tests, and score perturbations assessed enrichment and stability
+without random library-level splitting.
 Complete checksum-verified FASTQs from nine pre-specified GSE290979 libraries
 were independently re-quantified from raw reads with Salmon against GENCODE
 v47, followed by donor-line-aware analysis without random sample splitting.
@@ -44,6 +47,11 @@ robustness, GSE69175, and motor-neuron-specific disease annotations.
 Targeted raw splice analysis recovered six of 83 frozen events in both
 contrasts and one of 12 primary events. No event met the complete
 disease-direction, treatment-reversal, and two-line correction criterion.
+The 37-gene count was not enriched under gene-identity permutation
+(`p = 0.836`), whereas the four-gene overlap between processed- and
+raw-unit-robust sets was greater than expected after robustness-label
+permutation (`p = 0.044`). The four Tier 1 genes were selected in 89.8-95.9%
+of 1,000 biological-unit bootstrap iterations.
 
 **Conclusions:** Complementary human models nominate a small, reproducible set
 of resilience-associated hypotheses while revealing substantial
@@ -168,6 +176,34 @@ LOLO was not estimable. Candidate ranks were also recomputed after separately
 omitting GSE93939, GSE290979, or GSE108094 as a complete evidence source.
 There was no random library-level train/test split.
 
+### Permutation, bootstrap, and score sensitivity
+
+Two pre-specified permutation tests used 10,000 iterations. For the
+37-candidate count, the GSE290979 disease, GSE290979 treatment, and GSE108094
+disease effects were independently permuted across the 11,326 eligible genes
+while the GSE93939 effect and exploratory natural-resistance filter remained
+fixed. For the overlap between processed- and raw-unit-robust candidates, the
+nine raw robustness labels were permuted across the frozen 37 genes while the
+seven processed robustness labels remained fixed. Empirical one-sided
+probabilities used `(1 + exceedances) / (1 + permutations)`. Negative controls
+reversed disease or treatment directions or tested the full inverse pattern.
+
+Biological-unit stability used 1,000 cluster bootstrap iterations. GSE93939
+donors were sampled with replacement and a covariate-adjusted weighted model
+was fitted to TMM logCPM values. The three control and two SMA GSE290979 donor
+lines were sampled with replacement for the disease mean difference, and the
+two paired treatment lines were sampled with replacement for the treatment
+difference. GSE108094 remained fixed because unit-level external data were not
+available. The analysis recorded complete-pattern selection frequency and
+rank stability for the frozen candidates; it is a sensitivity analysis rather
+than an exact bootstrap of every original dataset-specific model.
+
+Score sensitivity compared equal component weights with doubled individual
+components, omission of each component, and median-percentile rank
+aggregation. Rank correlations and top-100 overlap were calculated against
+the equal-weight score. No procedure resampled individual technical
+libraries.
+
 ### Raw-read re-quantification
 
 Nine GSE290979 libraries were selected before outcome analysis: one complete
@@ -232,7 +268,8 @@ roles, resampling rules, and raw-read completion contracts were locked before
 publication integration. A synthetic regression test exercised all evidence
 tiers. The final validator checks exact dataset dimensions, holdout counts,
 candidate identities, raw concordance statistics, frozen ranks, publication
-scope, and absence of random analytical splits.
+scope, permutation and bootstrap outputs, and absence of random analytical
+splits.
 
 ## Results
 
@@ -258,6 +295,32 @@ Seven of 37 candidates passed every estimable processed biological-unit check:
 `LY6H`, `HS3ST5`, `ZNF853`, `PNCK`, `IL17D`, `CLPTM1`, and `PDPR`.
 Six different genes had GSE69175 disease-opposition support: `ROBO2`, `ATP9B`,
 `HEY1`, `LRRC4`, `SPIN1`, and `EIF4ENIF1`. The sets did not overlap.
+
+### Permutation distinguishes shortlist size from robustness overlap
+
+The 10,000-iteration gene-identity null produced a mean of 42.37
+complete-pattern genes and a 95% interval of 31-55. The observed count of 37
+was therefore not enriched (`p = 0.836`; Supplementary Figure S24). Direction
+negative controls selected 36 genes after reversing both disease directions
+and 69 after reversing treatment direction. These results show that the
+directional filter alone does not provide evidence of non-random enrichment.
+
+In contrast, independently permuting raw robustness labels among the 37 frozen
+candidates produced a mean raw/processed overlap of 1.70 genes and a 95%
+interval of 0-4. The observed overlap of four had an empirical `p = 0.044`.
+This test supports concordance between the two unit-robustness analyses; it
+does not establish that the four genes are causal or therapeutic.
+
+Across 1,000 donor- and donor-line-level bootstrap iterations, the median
+number of frozen candidates retaining the complete pattern was 24 (95%
+interval 10.975-34). Selection frequencies for the four Tier 1 genes were
+0.898 for `LY6H`, 0.959 for `HS3ST5`, 0.949 for `ZNF853`, and 0.941 for
+`IL17D` (Supplementary Figure S25). Across nine scoring variants, `LY6H` and
+`HS3ST5` remained in the top 100 in all variants, whereas `ZNF853` and `IL17D`
+did so in five and four variants, respectively. Genome-wide rank correlations
+with equal weighting ranged from 0.815 to 0.956. Thus, Tier 1 direction
+selection was stable under biological-unit resampling, while exact rank was
+more sensitive for the lower-ranked genes.
 
 ### All-nine raw-read analysis confirms broad effect direction
 
@@ -369,6 +432,14 @@ line-aware confirmation rule. The processed 83-event set should therefore
 remain hypothesis-generating until orthogonal RT-PCR or a broader raw
 alignment design establishes the proposed isoform changes.
 
+The resampling analyses further separate two claims that should not be
+conflated. The size of the 37-gene directional shortlist was compatible with
+the gene-identity null and should not be presented as pathway enrichment. The
+overlap of processed and raw unit-robust candidates was less compatible with
+chance label alignment, and the four overlapping genes were repeatedly
+selected when donors and lines were resampled. This makes reproducibility,
+rather than shortlist size, the principal computational support for Tier 1.
+
 The five Tier 2 genes deserve focused follow-up because raw analysis increased
 their unit-level support. The three Tier 3 genes remain relevant because
 failure of the raw criterion may reflect treatment-line instability,
@@ -423,6 +494,13 @@ can be reduced by annotation and event-representation differences, but
 near-matches were not promoted to confirmation. Orthogonal RT-PCR and Sanger
 sequencing are required before asserting the frozen isoform changes.
 
+Eighth, the biological-unit bootstrap uses TMM-logCPM sensitivity models and
+holds GSE108094 fixed because unit-level external values were unavailable. It
+therefore tests dependence on the available GSE93939 and GSE290979 biological
+units, not uncertainty from every data source. With only two SMA and two
+treatment lines, bootstrap frequencies can be optimistic and should be read
+alongside the explicit holdouts.
+
 Finally, candidate tiers are based primarily on direction stability, not
 multiple-testing significance or functional assays. They must not be
 interpreted as therapeutic recommendations.
@@ -433,11 +511,13 @@ A donor-aware, cross-model analysis retained GSE93939 as a natural-resistance
 anchor and identified 37 exploratory human resilience-direction candidates.
 All-nine raw GSE290979 re-quantification supported broad reproducibility of
 disease and treatment effects and identified four genes robust across both raw
-and processed biological-unit analyses. The resulting tiered shortlist is a
-reproducible experimental prioritization framework. Targeted raw junction
-analysis did not confirm the full processed splicing panel. These results are
-not evidence that any gene protects patients or increases full-length SMN2
-protein.
+and processed biological-unit analyses. Permutation testing did not support
+enrichment of the 37-gene count, but the raw/processed robustness overlap and
+Tier 1 bootstrap frequencies supported reproducibility of the four-gene
+subset. The resulting tiered shortlist is an experimental prioritization
+framework. Targeted raw junction analysis did not confirm the full processed
+splicing panel. These results are not evidence that any gene protects patients
+or increases full-length SMN2 protein.
 
 ## Data and Code Availability
 
@@ -557,6 +637,19 @@ respectively. These plots use frozen event coordinates; missing inclusion
 levels were not imputed and plot availability does not imply exact rMATS
 recovery.
 
+**[Supplementary Figure S24. Cross-model permutation
+nulls.](figures/supplementary_figure_S24_permutation_null.png)** Empirical
+null distributions from 10,000 gene-identity permutations for the
+37-candidate directional count and from 10,000 raw-robustness-label
+permutations for the four-gene raw/processed robustness overlap. Red lines
+show the observed values.
+
+**[Supplementary Figure S25. Biological-unit bootstrap candidate
+stability.](figures/supplementary_figure_S25_bootstrap_stability.png)**
+Complete-pattern selection frequency for each frozen candidate across 1,000
+donor- and donor-line-level bootstrap iterations. Dashed reference lines mark
+0.5 and 0.8.
+
 ## Supplementary Tables
 
 **Supplementary Table S1.** Frozen cross-model candidates with original
@@ -584,6 +677,19 @@ events recovered exactly in both contrasts.
 
 **Supplementary Tables S8-S9.** Raw splice-confirmation summary and
 provenance, including matching scope and multiplicity control.
+
+**Supplementary Table S10.** Empirical permutation summaries for the frozen
+37-gene directional count and four-gene raw/processed robustness overlap.
+
+**Supplementary Table S11.** Direction-reversal and inverse-pattern negative
+controls.
+
+**Supplementary Tables S12-S13.** Score-variant concordance and frozen
+candidate rank stability across nine weighting or aggregation variants.
+
+**Supplementary Tables S14-S15.** Frozen-candidate biological-unit bootstrap
+selection frequencies, direction frequencies, rank intervals, and global
+bootstrap summaries.
 
 ## References
 

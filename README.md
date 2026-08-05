@@ -22,6 +22,11 @@ cell-resolved context, and raw-read confirmation.
 - Raw biological-unit robust candidates: 9.
 - Robust in both raw and processed analyses: `LY6H`, `HS3ST5`, `ZNF853`,
   `IL17D`.
+- Stability analysis:
+  - 37-gene directional count: 10,000-permutation empirical `p = 0.836`.
+  - Four-gene raw/processed robust overlap: empirical `p = 0.044`.
+  - Tier 1 biological-unit bootstrap selection frequency: 0.898-0.959 across
+    1,000 iterations.
 - Raw splice-junction confirmation: 6/83 exact structures recovered in both
   contrasts; 1/12 primary events recovered; 0 events met the full two-line
   correction criterion.
@@ -52,6 +57,8 @@ ENA runs, checksums, sample selections, and expected paths are recorded in
 - [`manuscript/supplementary_table_S1_candidates.tsv`](manuscript/supplementary_table_S1_candidates.tsv)
 - [`manuscript/supplementary_table_S2_summary.tsv`](manuscript/supplementary_table_S2_summary.tsv)
 - [`manuscript/supplementary_table_S3_concordance.tsv`](manuscript/supplementary_table_S3_concordance.tsv)
+- [`manuscript/supplementary_table_S10_permutation_summary.tsv`](manuscript/supplementary_table_S10_permutation_summary.tsv)
+- [`manuscript/supplementary_table_S14_bootstrap_candidate_stability.tsv`](manuscript/supplementary_table_S14_bootstrap_candidate_stability.tsv)
 - [`manuscript/supplementary_figure_index.tsv`](manuscript/supplementary_figure_index.tsv)
 - [`docs/validation_freeze_2026-08-01.md`](docs/validation_freeze_2026-08-01.md)
 - [`manuscript/figures/figure_1_raw_vs_processed_concordance.pdf`](manuscript/figures/figure_1_raw_vs_processed_concordance.pdf)
@@ -74,11 +81,14 @@ With R 4.6.0 and the project packages installed:
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_workflow.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_analysis.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_raw_splice_publication_package.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_cross_model_stability_publication.R
 ```
 
 The completed gene-level analysis passed its seven regression tests and 66
 full-project output checks. The raw splice-junction workflow and tracked
 publication package add three focused regression tests.
+The permutation, bootstrap, and score-sensitivity package adds one focused
+regression test.
 
 ## Scope
 

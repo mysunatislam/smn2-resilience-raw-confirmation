@@ -22,3 +22,5 @@ S20	figures/sashimi/supplementary_figure_S20_FAT3_MXE_raw_sashimi.png	FAT3 MXE r
 S21	figures/sashimi/supplementary_figure_S21_MGEA5_MXE_raw_sashimi.png	MGEA5 MXE raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
 S22	figures/sashimi/supplementary_figure_S22_COL5A2_RI_raw_sashimi.png	COL5A2 retained-intron raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
 S23	figures/sashimi/supplementary_figure_S23_EIF5_A5SS_raw_sashimi.png	EIF5 A5SS raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S24	figures/supplementary_figure_S24_permutation_null.png	Cross-model permutation nulls	Directional-count and robustness-overlap permutation tests	r/33_cross_model_permutation_sensitivity.R
+S25	figures/supplementary_figure_S25_bootstrap_stability.png	Biological-unit bootstrap candidate stability	Donor- and donor-line-level bootstrap stability	r/34_biological_unit_bootstrap.R

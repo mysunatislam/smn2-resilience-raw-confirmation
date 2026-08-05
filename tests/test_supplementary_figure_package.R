@@ -34,8 +34,8 @@ required_columns <- c(
 if (!all(required_columns %in% names(figure_index))) {
   stop("Supplementary figure index has missing columns")
 }
-if (!identical(figure_index$figure_id, paste0("S", seq_len(23L)))) {
-  stop("Supplementary figure identifiers must run from S1 through S23")
+if (!identical(figure_index$figure_id, paste0("S", seq_len(25L)))) {
+  stop("Supplementary figure identifiers must run from S1 through S25")
 }
 if (anyDuplicated(figure_index$filename)) {
   stop("Supplementary figure filenames must be unique")
@@ -92,6 +92,17 @@ if (any(unlinked)) {
 }
 if (!grepl("Supplementary Figures S12-S23", manuscript, fixed = TRUE)) {
   stop("Grouped legend for the frozen 12-event sashimi panel is missing")
+}
+for (figure_id in c("S24", "S25")) {
+  if (
+    !grepl(
+      paste("Supplementary Figure", figure_id),
+      manuscript,
+      fixed = TRUE
+    )
+  ) {
+    stop("Legend is missing for Supplementary Figure ", figure_id)
+  }
 }
 
 cat("Supplementary figure package test passed\n")

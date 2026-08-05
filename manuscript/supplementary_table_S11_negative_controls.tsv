@@ -1,0 +1,5 @@
+control	selected_genes	interpretation
+observed_complete_pattern	37	frozen_selection_rule
+both_disease_directions_reversed	36	negative_control
+treatment_direction_reversed	69	negative_control
+full_inverse_pattern_without_natural_support_filter	468	negative_control

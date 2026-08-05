@@ -1,0 +1,15 @@
+metric	value
+iterations	1000
+seed	939390
+natural_resampled_donors	19
+disease_resampled_control_lines	3
+disease_resampled_sma_lines	2
+treatment_resampled_pairs	2
+external_effect_resampled	0
+median_bootstrap_eligible_genes	10589
+median_complete_pattern_genes	38
+complete_pattern_genes_q025	26
+complete_pattern_genes_q975	57
+median_frozen_37_selected	24
+frozen_37_selected_q025	10.975
+frozen_37_selected_q975	34
