@@ -26,6 +26,9 @@ tested by leave-one-donor, leave-one-line, and leave-one-dataset-out analyses.
 Complete checksum-verified FASTQs from nine pre-specified GSE290979 libraries
 were independently re-quantified from raw reads with Salmon against GENCODE
 v47, followed by donor-line-aware analysis without random sample splitting.
+The same reads were aligned with STAR 2.7.10a, analyzed within the 83 frozen
+event loci with rMATS 4.3.0, and matched exactly to the frozen processed event
+structures.
 
 **Results:** Among 11,326 ranked approved genes, 37 met a frozen exploratory
 natural-resistance criterion and the complete cross-model direction pattern.
@@ -38,12 +41,16 @@ lines. `LY6H`, `HS3ST5`, `ZNF853`, and `IL17D` were unit-robust in both the
 processed and raw analyses. Five additional genes were raw-unit robust and
 three retained processed-unit robustness. No candidate was supported by all
 robustness, GSE69175, and motor-neuron-specific disease annotations.
+Targeted raw splice analysis recovered six of 83 frozen events in both
+contrasts and one of 12 primary events. No event met the complete
+disease-direction, treatment-reversal, and two-line correction criterion.
 
 **Conclusions:** Complementary human models nominate a small, reproducible set
 of resilience-associated hypotheses while revealing substantial
 model-specific biology. The results prioritize genes for experimental
 perturbation but do not establish neuroprotection, therapeutic efficacy, or
-SMN2 splice correction.
+SMN2 splice correction. The limited raw splice recovery constrains the
+processed splicing claim and prioritizes orthogonal RT-PCR validation.
 
 **Keywords:** spinal muscular atrophy; motor neuron; oculomotor neuron;
 resilience; RNA sequencing; raw-read re-quantification; donor-aware analysis;
@@ -184,9 +191,28 @@ integrity gate verified sample order, biological-unit counts, quantification
 decisions, holdout completeness, concordance tables, candidate integrity, and
 absence of random splitting.
 
-This procedure is transcriptome re-quantification rather than whole-genome
-alignment. It does not provide raw splice-junction discovery or
+This Salmon procedure is transcriptome re-quantification and does not provide
 paralog-specific `SMN1`/`SMN2` quantification.
+
+### Targeted raw splice-junction confirmation
+
+The same nine complete FASTQ pairs were aligned at full depth to GRCh38 with
+STAR 2.7.10a using the GENCODE v47 annotation. Coordinate-sorted BAMs were
+preserved; BAMs restricted to the 83 frozen event loci plus 1 kb flanks were
+used for splice analysis. FastQC/MultiQC, STAR, samtools, rMATS, and
+rmats2sashimiplot versions were pinned.
+
+Fixed-event rMATS runs returned empty MATS tables despite direct STAR
+junction support. Before examining matched disease-treatment outcomes, the
+implementation was amended to target-locus de novo rMATS with `--novelSS`,
+followed by exact matching to the unchanged 83-event manifest. Confirmatory
+matching required gene, event class, chromosome, strand, and every
+event-defining coordinate in both the SMA-versus-control and
+R6-morpholino-versus-scramble contrasts. Events discovered within the loci
+but not matching the frozen structures were not interpreted as new findings.
+Within-panel false-discovery rates used Benjamini-Hochberg correction across
+the 83 frozen events. All 12 primary events were visualized from raw BAMs;
+unavailable raw inclusion levels were left missing rather than imputed.
 
 ### Publication evidence tiers
 
@@ -216,8 +242,8 @@ No GSE93939 oculomotor-positive gene reached FDR below 0.05 in the adjusted
 primary model, and neither primary GSE290979 expression contrast produced a
 donor-line-level FDR hit. These results discouraged hit-list interpretation
 of either core dataset. The processed GSE290979 splicing audit identified 83
-strict corrected events across 74 genes, but these events remain
-workbook-derived until complete raw junction-level validation is performed.
+strict corrected events across 74 genes. These were treated as processed-data
+claims and tested against the frozen raw junction workflow below.
 
 ### Cross-model direction identifies 37 exploratory candidates
 
@@ -294,6 +320,29 @@ expression candidates. This separation supports treating total-expression
 resilience and splice correction as related but non-interchangeable
 hypotheses. No genome-wide raw splice claim is made.
 
+### Targeted raw junction analysis does not reproduce the full processed panel
+
+The disease and treatment rMATS runs produced 1,318 and 991 supported events,
+respectively, within the frozen target loci. Exact matching recovered six of
+83 frozen structures in both contrasts: `OTUD3`, `TXNDC11`, `KIZ`, `EIF4G3`,
+`COL5A2`, and `ASAP1`. Five had the pre-specified minimum junction support,
+four retained the processed disease direction, and three retained treatment
+reversal. None reproduced correction in both SMA lines, and none met the full
+raw-confirmation criterion. Only `COL5A2` was recovered from the 12-event
+primary panel, and it did not retain the processed disease direction.
+
+Among the 77 events not recovered in both contrasts, most had same-gene,
+same-class raw candidates whose complete coordinate structures differed from
+the frozen definitions. Ten disease-side and 21 treatment-side events had no
+same-gene/event-class candidate. Disease raw-versus-processed delta PSI among
+the six exact pairs had Spearman rho 0.714, whereas treatment correlation was
+0.000; these correlations are descriptive because `n = 6` (Figure 3).
+Sashimi plots were generated for all 12 frozen primary structures
+(Supplementary Figures S12-S23), but plot availability was not counted as
+inferential recovery.
+
+![Figure 3. Targeted raw splice-event confirmation.](figures/figure_3_raw_splice_confirmation.png)
+
 ## Discussion
 
 This analysis reframes human oculomotor-neuron expression as one directional
@@ -312,6 +361,13 @@ Four genes survived both the original and raw biological-unit criteria.
 `LY6H` and `HS3ST5` also retained high frozen cross-model ranks, while
 `ZNF853` and `IL17D` show that reproducibility and original rank provide
 different information.
+
+The raw junction result materially narrows the splicing interpretation.
+Although direct read coverage exists at many frozen loci, only six complete
+event structures were recovered in both contrasts and none passed the full
+line-aware confirmation rule. The processed 83-event set should therefore
+remain hypothesis-generating until orthogonal RT-PCR or a broader raw
+alignment design establishes the proposed isoform changes.
 
 The five Tier 2 genes deserve focused follow-up because raw analysis increased
 their unit-level support. The three Tier 3 genes remain relevant because
@@ -361,10 +417,11 @@ Possible genomic misassignment cannot be excluded. The analysis is not
 whole-genome alignment and is not suitable for definitive discrimination of
 highly homologous `SMN1` and `SMN2` reads.
 
-Seventh, the strict splice-restoration results are derived from deposited
-processed values. A complete 31-library genome alignment and raw junction
-analysis, or orthogonal junction assays, is required before making
-workbook-independent genome-wide splicing claims.
+Seventh, the raw splice analysis is targeted to the 83 frozen loci and nine
+pre-specified libraries rather than all 31 study libraries. Exact recovery
+can be reduced by annotation and event-representation differences, but
+near-matches were not promoted to confirmation. Orthogonal RT-PCR and Sanger
+sequencing are required before asserting the frozen isoform changes.
 
 Finally, candidate tiers are based primarily on direction stability, not
 multiple-testing significance or functional assays. They must not be
@@ -377,8 +434,10 @@ anchor and identified 37 exploratory human resilience-direction candidates.
 All-nine raw GSE290979 re-quantification supported broad reproducibility of
 disease and treatment effects and identified four genes robust across both raw
 and processed biological-unit analyses. The resulting tiered shortlist is a
-reproducible experimental prioritization framework. It is not evidence that
-any gene protects patients or increases full-length SMN2 protein.
+reproducible experimental prioritization framework. Targeted raw junction
+analysis did not confirm the full processed splicing panel. These results are
+not evidence that any gene protects patients or increases full-length SMN2
+protein.
 
 ## Data and Code Availability
 
@@ -427,6 +486,11 @@ rank. Colored cells indicate support for the named evidence component; light
 gray indicates no support. The right strip denotes publication tier.
 GSE69175, GSE290980, adult motor-neuron detection, and strict splice
 restoration are annotations and do not alter the tier.
+
+**Figure 3. Targeted raw splice-event confirmation.** Processed delta PSI is
+compared with exact-match raw rMATS delta PSI for the six frozen events
+recovered in both disease and treatment contrasts. Correlations are
+descriptive because only six event pairs were available.
 
 ## Supplementary Figure Legends
 
@@ -486,6 +550,13 @@ corrected splicing events ranked by the locked validation-priority score and
 colored by event class. This is processed-data prioritization, not raw
 junction-level validation.
 
+**Supplementary Figures S12-S23. Frozen primary-event raw sashimi panel.**
+Raw four-group junction coverage for `MRFAP1`, `IFI27L1`, `PDE9A`, `HERPUD1`,
+`ABCA1`, `SAT2`, `TNPO2`, `SEPTIN11`, `FAT3`, `MGEA5`, `COL5A2`, and `EIF5`,
+respectively. These plots use frozen event coordinates; missing inclusion
+levels were not imputed and plot availability does not imply exact rMATS
+recovery.
+
 ## Supplementary Tables
 
 **Supplementary Table S1.** Frozen cross-model candidates with original
@@ -498,6 +569,21 @@ counts, tier sizes, and tier gene identities.
 
 **Supplementary Table S3.** Genome-wide raw-versus-processed concordance for
 the GSE290979 disease and treatment contrasts.
+
+**Supplementary Table S4.** Exact raw splice-confirmation results for all 83
+frozen processed events.
+
+**Supplementary Table S5.** Raw splice-confirmation results for the frozen
+12-event primary panel.
+
+**Supplementary Table S6.** Per-contrast structural mismatch and limiting
+reason for every unconfirmed frozen event.
+
+**Supplementary Table S7.** Sample-level informative junction support for
+events recovered exactly in both contrasts.
+
+**Supplementary Tables S8-S9.** Raw splice-confirmation summary and
+provenance, including matching scope and multiplicity control.
 
 ## References
 

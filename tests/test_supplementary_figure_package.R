@@ -34,8 +34,8 @@ required_columns <- c(
 if (!all(required_columns %in% names(figure_index))) {
   stop("Supplementary figure index has missing columns")
 }
-if (!identical(figure_index$figure_id, paste0("S", seq_len(11L)))) {
-  stop("Supplementary figure identifiers must run from S1 through S11")
+if (!identical(figure_index$figure_id, paste0("S", seq_len(23L)))) {
+  stop("Supplementary figure identifiers must run from S1 through S23")
 }
 if (anyDuplicated(figure_index$filename)) {
   stop("Supplementary figure filenames must be unique")
@@ -78,7 +78,7 @@ manuscript <- paste(
   collapse = "\n"
 )
 unlinked <- !vapply(
-  figure_index$filename,
+  figure_index$filename[seq_len(11L)],
   grepl,
   logical(1),
   x = manuscript,
@@ -87,8 +87,11 @@ unlinked <- !vapply(
 if (any(unlinked)) {
   stop(
     "Supplementary figures are absent from manuscript legends: ",
-    paste(figure_index$filename[unlinked], collapse = ", ")
+    paste(figure_index$filename[seq_len(11L)][unlinked], collapse = ", ")
   )
+}
+if (!grepl("Supplementary Figures S12-S23", manuscript, fixed = TRUE)) {
+  stop("Grouped legend for the frozen 12-event sashimi panel is missing")
 }
 
 cat("Supplementary figure package test passed\n")

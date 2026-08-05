@@ -10,3 +10,15 @@ S8	figures/supplementary_figure_S8_GSE243076_MN_markers.png	Independent adult mo
 S9	figures/supplementary_figure_S9_cell_resolved_context.png	Cell-resolved candidate context	Cross-dataset motor-neuron context	r/16_integrate_cell_resolved_context.R
 S10	figures/supplementary_figure_S10_splicing_panel_components.png	Splicing-panel score components	Processed-data splice-event prioritization	r/11_rank_splicing_validation_events.R
 S11	figures/supplementary_figure_S11_splicing_priority.png	Strict splicing-event validation priority	Processed-data splice-event prioritization	r/11_rank_splicing_validation_events.R
+S12	figures/sashimi/supplementary_figure_S12_MRFAP1_RI_raw_sashimi.png	MRFAP1 retained-intron raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S13	figures/sashimi/supplementary_figure_S13_IFI27L1_ES_raw_sashimi.png	IFI27L1 exon-skipping raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S14	figures/sashimi/supplementary_figure_S14_PDE9A_ES_raw_sashimi.png	PDE9A exon-skipping raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S15	figures/sashimi/supplementary_figure_S15_HERPUD1_A5SS_raw_sashimi.png	HERPUD1 A5SS raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S16	figures/sashimi/supplementary_figure_S16_ABCA1_RI_raw_sashimi.png	ABCA1 retained-intron raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S17	figures/sashimi/supplementary_figure_S17_SAT2_ES_raw_sashimi.png	SAT2 exon-skipping raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S18	figures/sashimi/supplementary_figure_S18_TNPO2_A3SS_raw_sashimi.png	TNPO2 A3SS raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S19	figures/sashimi/supplementary_figure_S19_SEPTIN11_MXE_raw_sashimi.png	SEPTIN11 MXE raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S20	figures/sashimi/supplementary_figure_S20_FAT3_MXE_raw_sashimi.png	FAT3 MXE raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S21	figures/sashimi/supplementary_figure_S21_MGEA5_MXE_raw_sashimi.png	MGEA5 MXE raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S22	figures/sashimi/supplementary_figure_S22_COL5A2_RI_raw_sashimi.png	COL5A2 retained-intron raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh
+S23	figures/sashimi/supplementary_figure_S23_EIF5_A5SS_raw_sashimi.png	EIF5 A5SS raw sashimi	Frozen raw splice visualization	local/gse290979_star_rmats/run_local9_star_rmats.sh

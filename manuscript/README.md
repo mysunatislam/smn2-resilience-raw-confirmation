@@ -10,9 +10,12 @@ cross-model human motor-neuron resilience analysis.
   deposited processed-matrix effect concordance.
 - `figures/figure_2_candidate_evidence_matrix.*`: evidence map for the frozen
   37-candidate set and publication tiers.
+- `figures/figure_3_raw_splice_confirmation.*`: exact raw-versus-processed
+  delta-PSI comparison for the six events recovered in both contrasts.
 - `figures/supplementary_figure_S1_*.png` through
-  `figures/supplementary_figure_S11_*.png`: QC, cross-model integration,
-  holdout robustness, cell-resolved context, and splicing-priority figures.
+  `figures/sashimi/supplementary_figure_S23_*.png`: QC, cross-model
+  integration, holdout robustness, cell-resolved context, splicing priority,
+  and the 12-event raw sashimi panel.
 - `supplementary_figure_index.tsv`: figure titles, evidence roles, and
   generating R scripts.
 - `supplementary_table_S1_candidates.tsv`: candidate-level effects,
@@ -20,8 +23,13 @@ cross-model human motor-neuron resilience analysis.
 - `supplementary_table_S2_summary.tsv`: locked analysis scope and tier counts.
 - `supplementary_table_S3_concordance.tsv`: raw-versus-processed concordance
   statistics.
+- `supplementary_table_S4_*.tsv` through `supplementary_table_S9_*.tsv`:
+  targeted raw splice results, mismatch reasons, support, summary, and
+  provenance.
+- `figures/sashimi/`: PDF and PNG raw-junction plots for all 12 frozen primary
+  events.
 
-The two main figures are supplied as PNG and vector PDF. Supplementary figures
+The three main figures are supplied as PNG and vector PDF. Supplementary figures
 are supplied as publication-resolution PNG files. The tracked figures and
 tables are generated from validated local results and should not be edited
 manually.
@@ -42,7 +50,8 @@ figure presence.
 
 ## Claim Boundary
 
-The completed raw analysis is an all-nine, checksum-verified, Salmon
-transcriptome re-quantification of GSE290979. It is not independent cohort
-validation, whole-genome alignment, splice-junction discovery, or
-SMN1-versus-SMN2 allele-specific quantification.
+The completed raw analysis includes all-nine, checksum-verified Salmon
+transcriptome re-quantification and targeted STAR-rMATS junction confirmation
+of the frozen splice loci. It is not independent cohort validation, complete
+31-library splice discovery, or SMN1-versus-SMN2 allele-specific
+quantification.

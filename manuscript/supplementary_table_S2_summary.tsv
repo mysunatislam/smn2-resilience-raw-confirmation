@@ -23,3 +23,10 @@ tier_2_genes	C12orf60;CABLES2;FAAH;KCNJ4;LSAMP
 tier_3_genes	CLPTM1;PDPR;PNCK
 raw_unit_robust_genes	C12orf60;CABLES2;FAAH;HS3ST5;IL17D;KCNJ4;LSAMP;LY6H;ZNF853
 processed_unit_robust_genes	CLPTM1;HS3ST5;IL17D;LY6H;PDPR;PNCK;ZNF853
+raw_splice_target_events	83
+raw_splice_primary_events	12
+raw_splice_exact_recovered_both_contrasts	6
+raw_splice_primary_exact_recovered	1
+raw_splice_full_two_line_confirmed	0
+raw_splice_disease_processed_spearman	0.714285714285714
+raw_splice_treatment_processed_spearman	0

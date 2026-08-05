@@ -22,6 +22,9 @@ cell-resolved context, and raw-read confirmation.
 - Raw biological-unit robust candidates: 9.
 - Robust in both raw and processed analyses: `LY6H`, `HS3ST5`, `ZNF853`,
   `IL17D`.
+- Raw splice-junction confirmation: 6/83 exact structures recovered in both
+  contrasts; 1/12 primary events recovered; 0 events met the full two-line
+  correction criterion.
 
 The original discovery ranks are unchanged. Raw confirmation is same-study
 sensitivity evidence, not independent validation.
@@ -32,7 +35,7 @@ sensitivity evidence, not independent validation.
 config/       Locked dataset roles, sample sheets, contrasts, and resampling rules
 data/metadata GEO records and the locked ENA run manifest
 docs/         Dataset rationale, statistical methods, and protocol details
-local/        Windows/WSL all-nine Salmon raw-read workflow
+local/        Windows/WSL all-nine Salmon and STAR-rMATS raw-read workflows
 r/            Authoritative R analysis
 scripts/      Source-data preparation
 tests/        Deterministic regression tests
@@ -53,6 +56,7 @@ ENA runs, checksums, sample selections, and expected paths are recorded in
 - [`docs/validation_freeze_2026-08-01.md`](docs/validation_freeze_2026-08-01.md)
 - [`manuscript/figures/figure_1_raw_vs_processed_concordance.pdf`](manuscript/figures/figure_1_raw_vs_processed_concordance.pdf)
 - [`manuscript/figures/figure_2_candidate_evidence_matrix.pdf`](manuscript/figures/figure_2_candidate_evidence_matrix.pdf)
+- [`manuscript/figures/figure_3_raw_splice_confirmation.pdf`](manuscript/figures/figure_3_raw_splice_confirmation.pdf)
 - [`manuscript/figures/`](manuscript/figures/)
 
 ## Validation
@@ -69,15 +73,17 @@ With R 4.6.0 and the project packages installed:
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_validation_freeze.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_workflow.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_local9_star_rmats_analysis.R
+& 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' tests\test_raw_splice_publication_package.R
 ```
 
 The completed gene-level analysis passed its seven regression tests and 66
-full-project output checks. The raw splice-junction workflow adds two
-pre-execution regression tests.
+full-project output checks. The raw splice-junction workflow and tracked
+publication package add three focused regression tests.
 
 ## Scope
 
-The raw result is an all-nine transcriptome re-quantification. It is not
-whole-genome alignment, raw splice-junction discovery, independent cohort
-validation, or paralog-specific `SMN1`/`SMN2` quantification. Candidate genes
-are experimental hypotheses, not therapeutic recommendations.
+The raw result includes all-nine transcriptome re-quantification and targeted
+STAR-rMATS confirmation at the frozen splice loci. It is not independent
+cohort validation, complete 31-library splice discovery, or paralog-specific
+`SMN1`/`SMN2` quantification. Candidate genes and splice events are
+experimental hypotheses, not therapeutic recommendations.
