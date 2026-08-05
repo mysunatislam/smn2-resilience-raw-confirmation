@@ -28,6 +28,10 @@ ENV_ROOT="${TOOLS_ROOT}/env"
 export PATH="${ENV_ROOT}/bin:${PATH}"
 PROFILE_DIR="${REPO_ROOT}/config/rmats/GSE290979/local9"
 FIXED_EVENT_DIR="${REPO_ROOT}/config/rmats/GSE290979/fixed_events"
+FIXED_EVENT_GENE_ID_MANIFEST="$(
+  printf '%s/config/rmats/GSE290979/fixed_event_gene_id_mapping.tsv\n' \
+    "${REPO_ROOT}"
+)"
 SAMPLE_SHEET="${REPO_ROOT}/config/GSE290979_local9_sample_sheet.tsv"
 TARGET_BED="${PROFILE_DIR}/fixed_events_padded_1kb_merged.bed"
 REFERENCE_FASTA_GZ="${REFERENCE_SOURCE_ROOT}/GRCh38.primary_assembly.genome.fa.gz"
@@ -372,6 +376,52 @@ sample_list_to_bams() {
   printf '%s\n' "${joined}"
 }
 
+validate_fixed_event_gene_ids() {
+  local event_type path
+  require_file "${FIXED_EVENT_GENE_ID_MANIFEST}"
+  for event_type in SE A5SS A3SS MXE RI; do
+    path="${FIXED_EVENT_DIR}/fromGTF.${event_type}.txt"
+    require_file "${path}"
+    awk -F '\t' -v event_type="${event_type/SE/ES}" '
+      FNR == NR {
+        sub(/\r$/, "", $NF)
+        if (FNR == 1) {
+          for (i = 1; i <= NF; i++) {
+            manifest_column[$i] = i
+          }
+          next
+        }
+        if ($manifest_column["match_method"] == "unmapped_in_gencode_v47") {
+          key = $manifest_column["event_type"] "|" \
+            $manifest_column["event_id"]
+          allowed_unmapped[key] = $manifest_column["previous_gene_id"]
+        }
+        next
+      }
+      FNR == 1 { next }
+      $2 ~ /^ENSG[0-9]+\.[0-9]+$/ { next }
+      allowed_unmapped[event_type "|" $1] == $2 { next }
+      { invalid++ }
+      END {
+        if (FNR < 2 || invalid > 0) {
+          exit 1
+        }
+      }
+    ' "${FIXED_EVENT_GENE_ID_MANIFEST}" "${path}" ||
+      die "Invalid GENCODE GeneID values in ${path}"
+  done
+}
+
+rmats_result_row_count() {
+  local output_directory="$1"
+  local event_type rows total=0
+  for event_type in SE A5SS A3SS MXE RI; do
+    rows="$(($(wc -l < "${output_directory}/${event_type}.MATS.JC.txt") - 1))"
+    total="$((total + rows))"
+  done
+  printf '%s\n' "${total}"
+}
+
 run_rmats_contrast() {
   local contrast="$1"
   local group1="$2"
@@ -380,6 +430,8 @@ run_rmats_contrast() {
   output_directory="${RMATS_ROOT}/${contrast}"
   tmp_directory="${RMATS_ROOT}/tmp_${contrast}"
   if [[ -s "${output_directory}/SUCCESS.tsv" ]]; then
+    [[ "$(rmats_result_row_count "${output_directory}")" -gt 0 ]] ||
+      die "rMATS marker has zero recovered events: ${contrast}"
     printf 'rMATS already complete: %s\n' "${contrast}"
     return
   fi
@@ -408,11 +460,15 @@ run_rmats_contrast() {
     --tmp "${tmp_directory}" \
     --task both \
     --individual-counts \
-    --fixed-event-set "${FIXED_EVENT_DIR}"
+    --novelSS
 
   for event_type in SE A5SS A3SS MXE RI; do
     require_file "${output_directory}/${event_type}.MATS.JC.txt"
   done
+  local supported_rows
+  supported_rows="$(rmats_result_row_count "${output_directory}")"
+  [[ "${supported_rows}" -gt 0 ]] ||
+    die "rMATS produced zero recovered events: ${contrast}"
   {
     printf 'metric\tvalue\n'
     printf 'status\tCOMPLETE\n'
@@ -420,8 +476,11 @@ run_rmats_contrast() {
     printf 'completed_utc\t%s\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
     printf 'rMATS_version\t%s\n' \
       "$(python "${ENV_ROOT}/bin/rmats.py" --version 2>&1 | head -n 1)"
-    printf 'fixed_event_set\tTRUE\n'
-    printf 'event_count\t83\n'
+    printf 'target_locus_discovery\tTRUE\n'
+    printf 'novel_splice_sites\tTRUE\n'
+    printf 'fixed_event_set\tFALSE\n'
+    printf 'frozen_event_targets\t83\n'
+    printf 'supported_event_rows\t%s\n' "${supported_rows}"
     printf 'group1\t%s\n' "${group1}"
     printf 'group2\t%s\n' "${group2}"
   } > "${output_directory}/SUCCESS.tsv"
@@ -440,6 +499,7 @@ phase_rmats() {
 phase_sashimi() {
   check_tools
   require_file "${RMATS_ROOT}/disease/SUCCESS.tsv"
+  require_file "${RMATS_ROOT}/treatment/SUCCESS.tsv"
   require_file \
     "${REPO_ROOT}/config/frozen_12_primary_splice_events_2026-08-01.tsv"
   local complete_marker
@@ -474,14 +534,14 @@ phase_sashimi() {
     printf 'R6-MO: 6-7\n'
     printf 'Scramble: 8-9\n'
   } > "${group_file}"
-  printf 'panel_order\tgene_symbol\tevent_type\tdisease_event_id\tpdf_path\tsha256\n' \
+  printf 'panel_order\tgene_symbol\tevent_type\tfrozen_event_id\tplot_event_source\tpdf_path\tsha256\n' \
     > "${manifest}"
 
   while IFS=$'\t' read -r panel_order gene_symbol event_type event_id; do
     local rmats_type source_file event_file output_directory pdf_count pdf_path
     rmats_type="${event_type}"
     [[ "${event_type}" != "ES" ]] || rmats_type="SE"
-    source_file="${RMATS_ROOT}/disease/${rmats_type}.MATS.JC.txt"
+    source_file="${FIXED_EVENT_DIR}/fromGTF.${rmats_type}.txt"
     require_file "${source_file}"
     output_directory="$(
       printf '%s/%02d_%s_%s\n' \
@@ -490,14 +550,32 @@ phase_sashimi() {
     event_file="${output_directory}/single_event.MATS.JC.txt"
     if [[ ! -e "${output_directory}" ]]; then
       mkdir -p "${output_directory}"
-      awk -F '\t' -v id="${event_id}" \
-        'NR == 1 || $1 == id { print }' \
+      awk -F '\t' -v OFS='\t' -v id="${event_id}" '
+        {
+          sub(/\r$/, "", $0)
+        }
+        NR == 1 {
+          print $0, "ID", "IJC_SAMPLE_1", "SJC_SAMPLE_1", "IJC_SAMPLE_2", "SJC_SAMPLE_2", "IncFormLen", "SkipFormLen", "PValue", "FDR", "IncLevel1", "IncLevel2", "IncLevelDifference"
+          next
+        }
+        $1 == id {
+          print $0, $1, "0,0,0,0,0", "0,0,0,0,0", "0,0,0,0", "0,0,0,0", 1, 1, 1, 1, "NA,NA,NA,NA,NA", "NA,NA,NA,NA", 0
+          found++
+        }
+        END {
+          if (found != 1) {
+            exit 1
+          }
+        }
+      ' \
         "${source_file}" > "${event_file}"
       [[ "$(wc -l < "${event_file}")" -eq 2 ]] ||
-        die "Expected one raw event for ${gene_symbol} ${event_type}"
+        die "Expected one frozen plot event for ${gene_symbol} ${event_type}"
       rmats2sashimiplot \
         --b1 "${SASHIMI_ROOT}/disease_bams.txt" \
         --b2 "${SASHIMI_ROOT}/treatment_bams.txt" \
+        --l1 disease_control \
+        --l2 treatment \
         --event-type "${rmats_type}" \
         -e "${event_file}" \
         --group-info "${group_file}" \
@@ -517,23 +595,15 @@ phase_sashimi() {
     pdf_path="$(
       find "${output_directory}" -type f -name '*.pdf' -print -quit
     )"
-    printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
       "${panel_order}" "${gene_symbol}" "${event_type}" "${event_id}" \
-      "${pdf_path}" "$(sha256sum "${pdf_path}" | awk '{ print $1 }')" \
+      "frozen_plot_only_definition" "${pdf_path}" \
+      "$(sha256sum "${pdf_path}" | awk '{ print $1 }')" \
       >> "${manifest}"
   done < <(
     awk -F '\t' '
-      NR == 1 {
-        for (i = 1; i <= NF; i++) {
-          column[$i] = i
-        }
-        next
-      }
-      {
-        print $column["panel_order"] "\t" \
-          $column["source_gene_symbol"] "\t" \
-          $column["event_type"] "\t" \
-          $column["disease_event_id"]
+      NR > 1 {
+        print (NR - 1) "\t" $1 "\t" $2 "\t" $6
       }
     ' "${REPO_ROOT}/config/frozen_12_primary_splice_events_2026-08-01.tsv"
   )

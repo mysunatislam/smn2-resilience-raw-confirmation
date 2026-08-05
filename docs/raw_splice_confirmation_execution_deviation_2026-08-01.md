@@ -1,5 +1,11 @@
 # Raw Splice Confirmation Execution Note
 
+> Implementation update (2026-08-05): fixed-event rMATS inference returned
+> empty MATS tables despite direct STAR junction support. The frozen target
+> set and success criteria were unchanged, but inference was amended to
+> target-locus `--novelSS` discovery followed by exact frozen-event matching.
+> See `raw_splice_confirmation_targeted_discovery_amendment_2026-08-05.md`.
+
 Date: `2026-08-01`
 
 Status: `RECORDED_BEFORE_STAR_RMATS_RESULTS`

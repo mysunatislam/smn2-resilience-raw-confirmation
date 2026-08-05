@@ -10,7 +10,8 @@ checksum-verified local9 FASTQ pairs.
 - STAR 2.7.10a with a sparse local index.
 - Full-depth, annotation-guided one-pass STAR (`twopassMode=None`,
   `readMapNumber=-1`).
-- rMATS turbo 4.3.0 with the frozen fixed-event set.
+- rMATS turbo 4.3.0 target-locus discovery with `--novelSS`, followed by
+  exact matching to the frozen 83-event set.
 - rmats2sashimiplot 4.0.0 for the frozen 12-event panel.
 - Disease: untreated SMA S2/S3 versus control C1/C2/C3.
 - Treatment: R6-MO versus scramble in S2/S3.
@@ -22,9 +23,9 @@ checksum-verified local9 FASTQ pairs.
 
 The sparse STAR index is a local feasibility adaptation. It does not alter the
 reference sequence, annotation, event coordinates, or read depth, but it is
-slower than a standard human STAR index. One-pass alignment is locked because
-the confirmatory set contains annotated events already embedded in the STAR
-splice-junction database.
+slower than a standard human STAR index. One-pass alignment is locked as a
+compute-feasibility decision; rMATS is allowed to assemble novel splice-site
+structures inside the frozen target loci.
 
 ## Memory Gate
 
@@ -95,6 +96,10 @@ Then run the frozen R analysis:
 The analysis must use the dated freeze in
 `docs/validation_freeze_2026-08-01.md`.
 
-The fixed-set FDR scope and targeted BAM-retention deviation are documented
-prospectively in
-`docs/raw_splice_confirmation_execution_deviation_2026-08-01.md`.
+The targeted BAM-retention deviation is documented prospectively in
+`docs/raw_splice_confirmation_execution_deviation_2026-08-01.md`. The dated
+implementation amendment from fixed-event inference to target-locus
+`--novelSS` discovery is documented in
+`docs/raw_splice_confirmation_targeted_discovery_amendment_2026-08-05.md`.
+Only exact matches to the frozen events are confirmatory; other discovered
+events are not interpreted.

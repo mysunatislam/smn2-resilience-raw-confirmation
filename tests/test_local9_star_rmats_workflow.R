@@ -33,6 +33,35 @@ target_bed <- read.delim(
   header = FALSE,
   stringsAsFactors = FALSE
 )
+fixed_event_directory <- file.path(
+  ROOT,
+  "config",
+  "rmats",
+  "GSE290979",
+  "fixed_events"
+)
+fixed_event_files <- file.path(
+  fixed_event_directory,
+  paste0("fromGTF.", c("SE", "A5SS", "A3SS", "MXE", "RI"), ".txt")
+)
+fixed_events <- lapply(
+  fixed_event_files,
+  read.delim,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+fixed_gene_ids <- unlist(lapply(fixed_events, `[[`, "GeneID"), use.names = FALSE)
+gene_id_manifest <- read.delim(
+  file.path(
+    ROOT,
+    "config",
+    "rmats",
+    "GSE290979",
+    "fixed_event_gene_id_mapping.tsv"
+  ),
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
 
 stopifnot(
   nrow(order_table) == 9L,
@@ -46,7 +75,11 @@ stopifnot(
   profile_value[["rmats_version"]] == "4.3.0",
   profile_value[["rmats2sashimiplot_version"]] == "4.0.0",
   profile_value[["fastq_deletion"]] == "FALSE",
-  profile_value[["bam_deletion"]] == "FALSE"
+  profile_value[["bam_deletion"]] == "FALSE",
+  sum(vapply(fixed_events, nrow, integer(1))) == 83L,
+  nrow(gene_id_manifest) == 83L,
+  sum(grepl("^ENSG[0-9]+\\.[0-9]+$", fixed_gene_ids)) +
+    sum(gene_id_manifest$match_method == "unmapped_in_gencode_v47") == 83L
 )
 
 rscript <- file.path(
@@ -57,6 +90,14 @@ status <- system2(
   rscript,
   c(
     file.path(ROOT, "r", "29_prepare_local9_star_rmats_profile.R"),
+    "--check-only"
+  )
+)
+stopifnot(status == 0L)
+status <- system2(
+  rscript,
+  c(
+    file.path(ROOT, "r", "31_reconcile_fixed_event_gene_ids.R"),
     "--check-only"
   )
 )
@@ -105,13 +146,17 @@ stopifnot(
   !grepl("(^|\\n)[[:space:]]*(del|erase)[[:space:]]", windows_launcher),
   grepl('DELETE_FASTQ:-0.*!= "0"', workflow),
   grepl('DELETE_BAM:-0.*!= "0"', workflow),
-  grepl("--fixed-event-set", workflow, fixed = TRUE),
+  grepl("--novelSS", workflow, fixed = TRUE),
+  !grepl("--fixed-event-set", workflow, fixed = TRUE),
+  grepl("target_locus_discovery", workflow, fixed = TRUE),
+  grepl("rmats_result_row_count", workflow, fixed = TRUE),
   grepl("--outStd SAM", workflow, fixed = TRUE),
   grepl('--twopassMode "${STAR_TWOPASS_MODE}"', workflow, fixed = TRUE),
   grepl('--readMapNumber "${STAR_READ_MAP_NUMBER}"', workflow, fixed = TRUE),
   grepl('--outTmpDir "${star_linux_tmp}"', workflow, fixed = TRUE),
   grepl('samtools view -@ 1 -u -L "${TARGET_BED}"', workflow, fixed = TRUE),
   grepl("phase_sashimi", workflow, fixed = TRUE),
+  grepl("frozen_plot_only_definition", workflow, fixed = TRUE),
   grepl(
     "run_local9_star_rmats.sh align",
     windows_launcher,

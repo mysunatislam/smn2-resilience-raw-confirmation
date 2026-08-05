@@ -35,6 +35,17 @@ fixed_root <- file.path(
   "GSE290979",
   "fixed_events"
 )
+gene_mapping <- read.delim(
+  file.path(
+    ROOT,
+    "config",
+    "rmats",
+    "GSE290979",
+    "fixed_event_gene_id_mapping.tsv"
+  ),
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
 
 format_values <- function(matrix) {
   apply(matrix, 1L, paste, collapse = ",")
@@ -90,6 +101,23 @@ for (event_type in names(event_types)) {
 
   disease <- add_columns(frame, sma, control)
   treatment <- add_columns(frame, r6, scramble)
+  mapping_type <- gene_mapping[
+    gene_mapping$event_type == event_type,
+    ,
+    drop = FALSE
+  ]
+  mapping_index <- match(
+    as.character(disease[[1L]]),
+    as.character(mapping_type$event_id)
+  )
+  current_symbols <- mapping_type$gencode_gene_name[mapping_index]
+  missing_current_symbols <- is.na(current_symbols) | !nzchar(current_symbols)
+  current_symbols[missing_current_symbols] <-
+    disease$geneSymbol[missing_current_symbols]
+  disease$geneSymbol <- paste0('"', current_symbols, '"')
+  treatment$geneSymbol <- paste0('"', current_symbols, '"')
+  disease$GeneID <- paste0('"', disease$GeneID, '"')
+  treatment$GeneID <- paste0('"', treatment$GeneID, '"')
   write.table(
     disease,
     file.path(
@@ -157,10 +185,15 @@ stopifnot(
   all(results$treatment_reversal_reproduced),
   all(results$both_lines_corrected),
   all(results$strong_raw_confirmation),
+  all(nzchar(results$disease_raw_event_id)),
+  all(nzchar(results$treatment_raw_event_id)),
+  all(is.finite(results$disease_rmats_fdr_target_locus_discovery)),
+  all(is.finite(results$treatment_rmats_fdr_target_locus_discovery)),
   all(results$raw_confirmation_limiting_reason ==
     "strong_raw_confirmation"),
   as.integer(summary_value[["structurally_recovered_83"]]) == 83L,
   as.integer(summary_value[["strong_raw_confirmation_83"]]) == 83L,
+  as.integer(summary_value[["primary_events_attempted"]]) == 12L,
   as.integer(summary_value[["primary_structurally_recovered"]]) == 12L,
   as.logical(summary_value[["primary_panel_success"]]),
   file.exists(
@@ -172,3 +205,47 @@ stopifnot(
 )
 
 cat("local9 STAR/rMATS synthetic analysis test passed\n")
+
+empty_class_root <- file.path(scratch, "analysis_empty_class")
+for (contrast in c("disease", "treatment")) {
+  path <- file.path(rmats_root, contrast, "A3SS.MATS.JC.txt")
+  frame <- read.delim(
+    path,
+    check.names = FALSE,
+    stringsAsFactors = FALSE,
+    quote = ""
+  )
+  write.table(
+    frame[0, , drop = FALSE],
+    path,
+    sep = "\t",
+    quote = FALSE,
+    row.names = FALSE,
+    na = ""
+  )
+}
+status <- system2(
+  rscript,
+  c(
+    file.path(ROOT, "r", "30_analyze_local9_star_rmats.R"),
+    paste0("--rmats-root=", rmats_root),
+    paste0("--output-root=", empty_class_root)
+  )
+)
+stopifnot(status == 0L)
+empty_class_results <- read.delim(
+  file.path(empty_class_root, "frozen_83_raw_splice_confirmation.tsv"),
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+stopifnot(
+  nrow(empty_class_results) == 83L,
+  !any(empty_class_results$structurally_recovered[
+    empty_class_results$event_type == "A3SS"
+  ]),
+  all(empty_class_results$structurally_recovered[
+    empty_class_results$event_type != "A3SS"
+  ])
+)
+
+cat("local9 STAR/rMATS empty-class regression test passed\n")

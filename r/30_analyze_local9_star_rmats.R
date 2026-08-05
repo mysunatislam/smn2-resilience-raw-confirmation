@@ -41,6 +41,13 @@ primary_path <- file.path(
   "config",
   "frozen_12_primary_splice_events_2026-08-01.tsv"
 )
+gene_mapping_path <- file.path(
+  ROOT,
+  "config",
+  "rmats",
+  "GSE290979",
+  "fixed_event_gene_id_mapping.tsv"
+)
 frozen <- read.delim(
   frozen_path,
   check.names = FALSE,
@@ -51,6 +58,11 @@ primary <- read.delim(
   check.names = FALSE,
   stringsAsFactors = FALSE
 )
+gene_mapping <- read.delim(
+  gene_mapping_path,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
 stopifnot(
   nrow(frozen) == 83L,
   nrow(primary) == 12L,
@@ -58,6 +70,20 @@ stopifnot(
   !anyDuplicated(primary$event_key),
   all(primary$event_key %in% frozen$event_key)
 )
+
+mapped_gene_rows <- !is.na(gene_mapping$gencode_gene_name) &
+  nzchar(gene_mapping$gencode_gene_name)
+gene_alias_to_frozen <- setNames(
+  gene_mapping$frozen_gene_symbol[mapped_gene_rows],
+  gene_mapping$gencode_gene_name[mapped_gene_rows]
+)
+gene_alias_to_frozen <- gene_alias_to_frozen[
+  !duplicated(names(gene_alias_to_frozen))
+]
+
+strip_outer_quotes <- function(values) {
+  sub('^"(.*)"$', "\\1", trimws(as.character(values)))
+}
 
 event_types <- c("ES", "A5SS", "A3SS", "MXE", "RI")
 rmats_types <- c(ES = "SE", A5SS = "A5SS", A3SS = "A3SS", MXE = "MXE", RI = "RI")
@@ -97,6 +123,9 @@ format_key_value <- function(values) {
 }
 
 make_event_key <- function(frame, event_type) {
+  if (nrow(frame) == 0L) {
+    return(character(0))
+  }
   columns <- lapply(
     frame[, event_specs[[event_type]], drop = FALSE],
     format_key_value
@@ -169,13 +198,23 @@ read_contrast <- function(contrast, group_lengths) {
         paste(missing, collapse = ", ")
       )
     }
-    frame$event_type <- event_type
+    frame$GeneID <- strip_outer_quotes(frame$GeneID)
+    frame$geneSymbol <- strip_outer_quotes(frame$geneSymbol)
+    frame$annotation_geneSymbol <- frame$geneSymbol
+    mapped_symbols <- unname(gene_alias_to_frozen[frame$geneSymbol])
+    replace_symbols <- !is.na(mapped_symbols)
+    frame$geneSymbol[replace_symbols] <- mapped_symbols[replace_symbols]
+    frame$event_type <- rep(event_type, nrow(frame))
     frame$event_key <- make_event_key(frame, event_type)
-    frame$exact_match_multiplicity <- ave(
-      seq_len(nrow(frame)),
-      frame$event_key,
-      FUN = length
-    )
+    frame$exact_match_multiplicity <- if (nrow(frame) == 0L) {
+      integer(0)
+    } else {
+      ave(
+        seq_len(nrow(frame)),
+        frame$event_key,
+        FUN = length
+      )
+    }
     frames[[event_type]] <- frame
   }
   frames
@@ -193,12 +232,26 @@ empty_record <- function(event) {
     strand = event$strand,
     disease_exact_matches = 0L,
     treatment_exact_matches = 0L,
+    disease_same_gene_class_candidates = 0L,
+    treatment_same_gene_class_candidates = 0L,
+    disease_same_locus_candidates = 0L,
+    treatment_same_locus_candidates = 0L,
+    disease_best_coordinate_matches = 0L,
+    treatment_best_coordinate_matches = 0L,
+    disease_coordinate_fields = 0L,
+    treatment_coordinate_fields = 0L,
+    disease_structural_match_reason = "",
+    treatment_structural_match_reason = "",
+    disease_best_coordinate_mismatch = "",
+    treatment_best_coordinate_mismatch = "",
+    disease_raw_event_id = "",
+    treatment_raw_event_id = "",
     disease_raw_delta = NA_real_,
     treatment_raw_delta = NA_real_,
     disease_p_value = NA_real_,
-    disease_rmats_fdr_fixed_set = NA_real_,
+    disease_rmats_fdr_target_locus_discovery = NA_real_,
     treatment_p_value = NA_real_,
-    treatment_rmats_fdr_fixed_set = NA_real_,
+    treatment_rmats_fdr_target_locus_discovery = NA_real_,
     raw_control_mean_psi = NA_real_,
     raw_sma_mean_psi = NA_real_,
     raw_scramble_mean_psi = NA_real_,
@@ -235,10 +288,85 @@ empty_record <- function(event) {
 extract_unique <- function(frames, event) {
   frame <- frames[[event$event_type]]
   matches <- which(frame$event_key == event$event_key)
+  same_gene <- which(frame$geneSymbol == event$gene_symbol)
+  same_locus <- same_gene[
+    frame$chr[same_gene] == event$chromosome &
+      frame$strand[same_gene] == event$strand
+  ]
+  coordinate_fields <- setdiff(
+    event_specs[[event$event_type]],
+    c("geneSymbol", "chr", "strand")
+  )
+  coordinate_matches <- 0L
+  coordinate_mismatch <- ""
+  if (length(same_locus) > 0L) {
+    event_key_parts <- strsplit(
+      event$event_key,
+      "|",
+      fixed = TRUE
+    )[[1L]]
+    target_values <- event_key_parts[-seq_len(4L)]
+    stopifnot(length(target_values) == length(coordinate_fields))
+    names(target_values) <- coordinate_fields
+    agreement <- vapply(
+      same_locus,
+      function(row_index) {
+        sum(vapply(
+          coordinate_fields,
+          function(column) {
+            format_key_value(frame[row_index, column]) ==
+              target_values[[column]]
+          },
+          logical(1)
+        ))
+      },
+      integer(1)
+    )
+    best_index <- same_locus[which.max(agreement)]
+    coordinate_matches <- max(agreement)
+    mismatch_fields <- coordinate_fields[vapply(
+      coordinate_fields,
+      function(column) {
+        format_key_value(frame[best_index, column]) !=
+          target_values[[column]]
+      },
+      logical(1)
+    )]
+    if (length(mismatch_fields) > 0L) {
+      coordinate_mismatch <- paste(vapply(
+        mismatch_fields,
+        function(column) {
+          paste0(
+            column,
+            ":raw=", format_key_value(frame[best_index, column]),
+            ",frozen=", target_values[[column]]
+          )
+        },
+        character(1)
+      ), collapse = ";")
+    }
+  }
+  match_reason <- if (length(matches) == 1L) {
+    "exact_match"
+  } else if (length(matches) > 1L) {
+    "ambiguous_exact_match"
+  } else if (length(same_gene) == 0L) {
+    "no_same_gene_event_class_candidate"
+  } else if (length(same_locus) == 0L) {
+    "chromosome_or_strand_mismatch"
+  } else {
+    "event_coordinate_mismatch"
+  }
   list(
     frame = frame,
     matches = matches,
-    row = if (length(matches) == 1L) frame[matches, , drop = FALSE] else NULL
+    row = if (length(matches) == 1L) frame[matches, , drop = FALSE] else NULL,
+    same_gene_class_candidates = length(same_gene),
+    same_locus_candidates = length(same_locus),
+    best_coordinate_matches = coordinate_matches,
+    coordinate_fields = length(coordinate_fields),
+    structural_match_reason = match_reason,
+    best_coordinate_mismatch = coordinate_mismatch
   )
 }
 
@@ -260,10 +388,30 @@ for (index in seq_len(nrow(frozen))) {
   record <- empty_record(event)
   record$disease_exact_matches <- length(disease$matches)
   record$treatment_exact_matches <- length(treatment$matches)
+  record$disease_same_gene_class_candidates <-
+    disease$same_gene_class_candidates
+  record$treatment_same_gene_class_candidates <-
+    treatment$same_gene_class_candidates
+  record$disease_same_locus_candidates <- disease$same_locus_candidates
+  record$treatment_same_locus_candidates <- treatment$same_locus_candidates
+  record$disease_best_coordinate_matches <- disease$best_coordinate_matches
+  record$treatment_best_coordinate_matches <-
+    treatment$best_coordinate_matches
+  record$disease_coordinate_fields <- disease$coordinate_fields
+  record$treatment_coordinate_fields <- treatment$coordinate_fields
+  record$disease_structural_match_reason <- disease$structural_match_reason
+  record$treatment_structural_match_reason <-
+    treatment$structural_match_reason
+  record$disease_best_coordinate_mismatch <-
+    disease$best_coordinate_mismatch
+  record$treatment_best_coordinate_mismatch <-
+    treatment$best_coordinate_mismatch
 
   if (length(disease$matches) == 1L && length(treatment$matches) == 1L) {
     disease_row <- disease$row
     treatment_row <- treatment$row
+    record$disease_raw_event_id <- as.character(disease_row[[1L]])
+    record$treatment_raw_event_id <- as.character(treatment_row[[1L]])
     disease_psi1 <- number_matrix(disease_row$IncLevel1, 2L)
     disease_psi2 <- number_matrix(disease_row$IncLevel2, 3L)
     treatment_psi1 <- number_matrix(treatment_row$IncLevel1, 2L)
@@ -284,9 +432,11 @@ for (index in seq_len(nrow(frozen))) {
     record$disease_raw_delta <- as.numeric(disease_row$IncLevelDifference)
     record$treatment_raw_delta <- as.numeric(treatment_row$IncLevelDifference)
     record$disease_p_value <- as.numeric(disease_row$PValue)
-    record$disease_rmats_fdr_fixed_set <- as.numeric(disease_row$FDR)
+    record$disease_rmats_fdr_target_locus_discovery <-
+      as.numeric(disease_row$FDR)
     record$treatment_p_value <- as.numeric(treatment_row$PValue)
-    record$treatment_rmats_fdr_fixed_set <- as.numeric(treatment_row$FDR)
+    record$treatment_rmats_fdr_target_locus_discovery <-
+      as.numeric(treatment_row$FDR)
     record$raw_sma_mean_psi <- finite_row_mean(disease_psi1)
     record$raw_control_mean_psi <- finite_row_mean(disease_psi2)
     record$raw_r6_mean_psi <- finite_row_mean(treatment_psi1)
@@ -397,19 +547,10 @@ for (index in seq_len(nrow(frozen))) {
     length(disease$matches) == 0L ||
       length(treatment$matches) == 0L
   ) {
-    same_gene_disease <- any(
-      disease$frame$geneSymbol == event$gene_symbol
+    record$structural_recovery_reason <- paste0(
+      "disease_", disease$structural_match_reason,
+      ";treatment_", treatment$structural_match_reason
     )
-    same_gene_treatment <- any(
-      treatment$frame$geneSymbol == event$gene_symbol
-    )
-    record$structural_recovery_reason <- if (
-      same_gene_disease || same_gene_treatment
-    ) {
-      "annotation_or_chromosome_mismatch"
-    } else {
-      "no_exact_structural_match"
-    }
   } else if (!record$structurally_recovered) {
     record$structural_recovery_reason <- "exact_structure_without_finite_psi"
   } else {
@@ -551,10 +692,10 @@ panel_full_correction <- sum(
     primary_results$both_lines_corrected &
     primary_results$adequate_junction_support
 )
-panel_attempted <- nrow(primary_results) == 12L
+panel_attempted <- nrow(primary_results)
 panel_correlation_eligible <- sum(finite_disease) >= 30L
 panel_success <- all(
-  panel_attempted,
+  panel_attempted == 12L,
   panel_recovered >= 8L,
   panel_disease >= 6L,
   panel_full_correction >= 4L,
@@ -652,6 +793,12 @@ write_tsv(
     "event_key", "event_type", "gene_symbol", "structurally_recovered",
     "adequate_junction_support", "disease_direction_reproduced",
     "treatment_reversal_reproduced", "both_lines_corrected",
+    "disease_structural_match_reason",
+    "treatment_structural_match_reason",
+    "disease_best_coordinate_matches", "disease_coordinate_fields",
+    "treatment_best_coordinate_matches", "treatment_coordinate_fields",
+    "disease_best_coordinate_mismatch",
+    "treatment_best_coordinate_mismatch",
     "structural_recovery_reason", "raw_confirmation_limiting_reason"
   )],
   "frozen_83_unconfirmed_reasons.tsv"
@@ -669,7 +816,11 @@ plot(
   col = "#176B87",
   xlab = "Processed disease delta PSI",
   ylab = "Raw disease delta PSI",
-  main = sprintf("Disease: Spearman %.2f", disease_spearman)
+  main = sprintf(
+    "Disease: Spearman %.2f (n=%d)",
+    disease_spearman,
+    sum(finite_disease)
+  )
 )
 abline(h = 0, v = 0, col = "grey75")
 abline(0, 1, lty = 2, col = "grey35")
@@ -680,7 +831,11 @@ plot(
   col = "#B04A5A",
   xlab = "Processed treatment delta PSI",
   ylab = "Raw treatment delta PSI",
-  main = sprintf("Treatment: Spearman %.2f", treatment_spearman)
+  main = sprintf(
+    "Treatment: Spearman %.2f (n=%d)",
+    treatment_spearman,
+    sum(finite_treatment)
+  )
 )
 abline(h = 0, v = 0, col = "grey75")
 abline(0, 1, lty = 2, col = "grey35")
@@ -711,7 +866,7 @@ provenance <- data.frame(
     "control_untreated_C1_C2_C3",
     "R6-MO_S2_S3",
     "scramble_S2_S3",
-    "rMATS_fixed_83_event_set_not_genome_wide",
+    "rMATS_target_locus_de_novo_not_genome_wide",
     "BH_within_frozen_83",
     as.character(panel_success)
   ),
