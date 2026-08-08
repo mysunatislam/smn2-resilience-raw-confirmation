@@ -236,16 +236,16 @@ write_tsv(
 
 png(
   file.path(ROOT, "results", "r", "figures", "GSE93939_R_MDS.png"),
-  width = 1800,
-  height = 1400,
-  res = 180
+  width = 6000,
+  height = 4667,
+  res = 600
 )
 colors <- ifelse(metadata$group == "OMN", "#C44E52", "#3C5488")
 plotMDS(
   primary$y,
   col = colors,
   pch = 19,
-  main = "GSE93939 TMM-normalized human motor-neuron libraries"
+  main = ""
 )
 legend(
   "topright",
@@ -264,9 +264,9 @@ png(
     "figures",
     "GSE93939_R_primary_vs_sensitivity.png"
   ),
-  width = 1600,
-  height = 1500,
-  res = 180
+  width = 5333,
+  height = 5000,
+  res = 600
 )
 plot(
   comparison$log2_effect_omn_vs_sc,
@@ -276,7 +276,7 @@ plot(
   col = grDevices::adjustcolor("#3C5488", alpha.f = 0.35),
   xlab = "Adjusted OMN - spinal log2 effect",
   ylab = "HiSeq2000 sensitivity log2 effect",
-  main = sprintf("GSE93939 effect sensitivity (Pearson r = %.3f)", effect_correlation)
+  main = ""
 )
 abline(h = 0, v = 0, col = "grey55")
 abline(a = 0, b = 1, col = "#C44E52", lwd = 2)

@@ -518,7 +518,7 @@ plot_stability <- function(device) {
     axes = FALSE,
     xlab = "Biological-unit bootstrap selection frequency",
     ylab = "",
-    main = "Frozen candidate stability"
+    main = ""
   )
   axis(1)
   axis(
@@ -542,9 +542,9 @@ plot_stability(function() {
 plot_stability(function() {
   grDevices::png(
     file.path(output_root, "biological_unit_bootstrap_stability.png"),
-    width = 1500,
-    height = 1800,
-    res = 200
+    width = 4500,
+    height = 5400,
+    res = 600
   )
 })
 

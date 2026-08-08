@@ -492,7 +492,7 @@ draw_concordance_figure <- function() {
   graphics::par(
     mfrow = c(1, 2),
     mar = c(4.5, 4.8, 3.5, 1.2),
-    oma = c(0, 0, 1.2, 0)
+    oma = c(0, 0, 0, 0)
   )
   draw_concordance_panel(
     disease,
@@ -506,12 +506,6 @@ draw_concordance_figure <- function() {
     "R6-MO versus scramble",
     grDevices::adjustcolor("#C45A2D", alpha.f = 0.28)
   )
-  graphics::mtext(
-    "Raw-read re-quantification versus deposited processed matrix",
-    outer = TRUE,
-    font = 2,
-    cex = 1.05
-  )
 }
 
 concordance_png <- file.path(
@@ -519,9 +513,9 @@ concordance_png <- file.path(
 )
 grDevices::png(
   concordance_png,
-  width = 2400,
-  height = 1250,
-  res = 220
+  width = 6545,
+  height = 3409,
+  res = 600
 )
 draw_concordance_figure()
 grDevices::dev.off()
@@ -577,7 +571,7 @@ draw_evidence_figure <- function() {
     axes = FALSE,
     xlab = "",
     ylab = "",
-    main = "Evidence map for the frozen 37-candidate set",
+    main = "",
     bty = "n"
   )
   support_colors <- c(
@@ -663,9 +657,9 @@ evidence_png <- file.path(
 )
 grDevices::png(
   evidence_png,
-  width = 2600,
-  height = 2750,
-  res = 240
+  width = 6500,
+  height = 6875,
+  res = 600
 )
 draw_evidence_figure()
 grDevices::dev.off()

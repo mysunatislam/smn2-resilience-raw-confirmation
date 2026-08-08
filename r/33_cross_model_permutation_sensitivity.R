@@ -335,7 +335,7 @@ plot_permutation <- function(device) {
     col = "#8CBEB2",
     border = "white",
     xlab = "Complete-pattern genes under permutation",
-    main = "Gene-identity permutation"
+    main = ""
   )
   abline(v = observed_candidate_count, col = "#B23A48", lwd = 2)
   hist(
@@ -344,7 +344,7 @@ plot_permutation <- function(device) {
     col = "#E6B655",
     border = "white",
     xlab = "Raw and processed robust overlap",
-    main = "Robustness-label permutation"
+    main = ""
   )
   abline(v = observed_robust_overlap, col = "#B23A48", lwd = 2)
 }
@@ -359,9 +359,9 @@ plot_permutation(function() {
 plot_permutation(function() {
   grDevices::png(
     file.path(output_root, "cross_model_permutation_null.png"),
-    width = 1700,
-    height = 850,
-    res = 200
+    width = 5100,
+    height = 2550,
+    res = 600
   )
 })
 

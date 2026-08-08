@@ -298,9 +298,9 @@ png(
     "figures",
     "GSE290979_R_disease_pseudobulk_MDS.png"
   ),
-  width = 1600,
-  height = 1400,
-  res = 180
+  width = 5333,
+  height = 4667,
+  res = 600
 )
 colors <- ifelse(
   disease_metadata$genotype == "SMA",
@@ -312,7 +312,7 @@ plotMDS(
   col = colors,
   pch = 19,
   labels = rownames(disease_metadata),
-  main = "GSE290979 donor-line pseudobulks"
+  main = ""
 )
 legend(
   x = -2.8,

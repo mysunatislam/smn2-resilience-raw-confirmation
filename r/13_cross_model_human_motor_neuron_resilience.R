@@ -390,9 +390,9 @@ png(
     "figures",
     "human_cross_model_resilience_top25.png"
   ),
-  width = 1900,
-  height = 1700,
-  res = 180
+  width = 6333,
+  height = 5667,
+  res = 600
 )
 par(mar = c(12, 12, 5, 3))
 image(
@@ -405,7 +405,7 @@ image(
   yaxt = "n",
   xlab = "",
   ylab = "",
-  main = "Exploratory cross-model resilience shortlist: top 25 of 37"
+  main = ""
 )
 axis(
   1,
@@ -464,9 +464,9 @@ png(
     "figures",
     "human_cross_model_natural_vs_external.png"
   ),
-  width = 1700,
-  height = 1500,
-  res = 180
+  width = 5667,
+  height = 5000,
+  res = 600
 )
 par(mar = c(6, 6, 4, 2))
 plot(
@@ -477,7 +477,7 @@ plot(
   col = colors,
   xlab = "GSE93939 natural-resistance effect percentile",
   ylab = "GSE108094 SMA-depletion effect percentile",
-  main = "Natural resistance and independent iPSC-SMA disease opposition"
+  main = ""
 )
 abline(h = 0.5, v = 0.5, col = "grey75", lty = 3)
 abline(0, 1, col = "grey70", lty = 2)

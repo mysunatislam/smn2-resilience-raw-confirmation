@@ -268,9 +268,9 @@ png(
     ROOT, "results", "r", "figures",
     "human_holdout_robustness_top25.png"
   ),
-  width = 1900,
-  height = 1750,
-  res = 180
+  width = 6333,
+  height = 5833,
+  res = 600
 )
 par(mar = c(13, 12, 5, 3))
 image(
@@ -283,7 +283,7 @@ image(
   yaxt = "n",
   xlab = "",
   ylab = "",
-  main = "Biological-unit and dataset holdout robustness"
+  main = ""
 )
 axis(1, at = seq_len(ncol(plot_matrix)), labels = colnames(plot_matrix), las = 2)
 axis(

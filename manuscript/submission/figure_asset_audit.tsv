@@ -1,0 +1,29 @@
+asset_id	png_path	pixel_width	pixel_height	dpi_x	dpi_y	vector_pdf	publication_basis	status
+Figure 1	manuscript/figures/figure_1_raw_vs_processed_concordance.png	6545	3409	600.0	600.0	True	vector_pdf	PASS
+Figure 2	manuscript/figures/figure_2_candidate_evidence_matrix.png	6500	6875	600.0	600.0	True	vector_pdf	PASS
+Figure 3	manuscript/figures/figure_3_raw_splice_confirmation.png	1700	850	200.0	200.0	True	vector_pdf	PASS
+S1	manuscript/figures/supplementary_figure_S1_GSE93939_MDS.png	6000	4667	600.0	600.0	False	png_600_dpi	PASS
+S2	manuscript/figures/supplementary_figure_S2_GSE93939_sensitivity.png	5333	5000	600.0	600.0	False	png_600_dpi	PASS
+S3	manuscript/figures/supplementary_figure_S3_GSE290979_MDS.png	5333	4667	600.0	600.0	False	png_600_dpi	PASS
+S4	manuscript/figures/supplementary_figure_S4_cross_model_top25.png	6333	5667	600.0	600.0	False	png_600_dpi	PASS
+S5	manuscript/figures/supplementary_figure_S5_natural_vs_external.png	5667	5000	600.0	600.0	False	png_600_dpi	PASS
+S6	manuscript/figures/supplementary_figure_S6_holdout_robustness.png	6333	5833	600.0	600.0	False	png_600_dpi	PASS
+S7	manuscript/figures/supplementary_figure_S7_GSE290980_MN_DEGs.png	5833	4667	600.0	600.0	False	png_600_dpi	PASS
+S8	manuscript/figures/supplementary_figure_S8_GSE243076_MN_markers.png	5667	4667	600.0	600.0	False	png_600_dpi	PASS
+S9	manuscript/figures/supplementary_figure_S9_cell_resolved_context.png	5833	4833	600.0	600.0	False	png_600_dpi	PASS
+S10	manuscript/figures/supplementary_figure_S10_splicing_panel_components.png	6000	4333	600.0	600.0	False	png_600_dpi	PASS
+S11	manuscript/figures/supplementary_figure_S11_splicing_priority.png	6000	5000	600.0	600.0	False	png_600_dpi	PASS
+S12	manuscript/figures/sashimi/supplementary_figure_S12_MRFAP1_RI_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S13	manuscript/figures/sashimi/supplementary_figure_S13_IFI27L1_ES_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S14	manuscript/figures/sashimi/supplementary_figure_S14_PDE9A_ES_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S15	manuscript/figures/sashimi/supplementary_figure_S15_HERPUD1_A5SS_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S16	manuscript/figures/sashimi/supplementary_figure_S16_ABCA1_RI_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S17	manuscript/figures/sashimi/supplementary_figure_S17_SAT2_ES_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S18	manuscript/figures/sashimi/supplementary_figure_S18_TNPO2_A3SS_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S19	manuscript/figures/sashimi/supplementary_figure_S19_SEPTIN11_MXE_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S20	manuscript/figures/sashimi/supplementary_figure_S20_FAT3_MXE_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S21	manuscript/figures/sashimi/supplementary_figure_S21_MGEA5_MXE_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S22	manuscript/figures/sashimi/supplementary_figure_S22_COL5A2_RI_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S23	manuscript/figures/sashimi/supplementary_figure_S23_EIF5_A5SS_raw_sashimi.png	2000	1600	200.0	200.0	True	vector_pdf	PASS
+S24	manuscript/figures/supplementary_figure_S24_permutation_null.png	5100	2550	600.0	600.0	True	vector_pdf	PASS
+S25	manuscript/figures/supplementary_figure_S25_bootstrap_stability.png	4500	5400	600.0	600.0	True	vector_pdf	PASS

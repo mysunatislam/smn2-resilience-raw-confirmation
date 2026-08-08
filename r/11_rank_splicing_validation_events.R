@@ -431,9 +431,9 @@ png(
     "figures",
     "GSE290979_R_validation_priority_top20.png"
   ),
-  width = 1800,
-  height = 1500,
-  res = 180
+  width = 6000,
+  height = 5000,
+  res = 600
 )
 par(mar = c(5, 12, 4, 2))
 y <- rev(seq_len(nrow(top)))
@@ -447,7 +447,7 @@ plot(
   ylab = "",
   xlab = "Validation-priority score",
   xlim = c(0, 1),
-  main = "GSE290979 strict splicing events: top 20 for validation"
+  main = ""
 )
 segments(0, y, top$validation_priority_score, y, col = "grey80", lwd = 2)
 points(
@@ -487,9 +487,9 @@ png(
     "figures",
     "GSE290979_R_validation_panel_components.png"
   ),
-  width = 1800,
-  height = 1300,
-  res = 180
+  width = 6000,
+  height = 4333,
+  res = 600
 )
 par(mar = c(10, 12, 4, 2))
 image(
@@ -502,7 +502,7 @@ image(
   yaxt = "n",
   xlab = "",
   ylab = "",
-  main = "Transparent score components for the 12-event panel"
+  main = ""
 )
 axis(
   1,

@@ -244,9 +244,9 @@ png(
     ROOT, "results", "r", "figures",
     "human_cell_resolved_candidate_context.png"
   ),
-  width = 1750,
-  height = 1450,
-  res = 180
+  width = 5833,
+  height = 4833,
+  res = 600
 )
 par(mar = c(6, 6, 4, 2))
 plot(
@@ -260,7 +260,7 @@ plot(
   ),
   xlab = "Independent adult C20 log2 enrichment",
   ylab = "Same-study MN SMA minus control log2 effect",
-  main = "Cell-resolved context for cross-model candidates"
+  main = ""
 )
 abline(h = 0, v = 0, col = "grey70", lty = 2)
 label_rows <- plot_rows

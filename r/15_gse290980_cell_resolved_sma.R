@@ -272,9 +272,9 @@ write_tsv(summary, "results/r/cell_resolved/GSE290980_summary.tsv")
 top <- head(mn_deg[order(-abs(mn_deg$sma_vs_control_log2_effect)), ], 20L)
 png(
   file.path(ROOT, "results", "r", "figures", "GSE290980_MN_top_disease_DEGs.png"),
-  width = 1750,
-  height = 1400,
-  res = 180
+  width = 5833,
+  height = 4667,
+  res = 600
 )
 par(mar = c(5, 11, 4, 2))
 barplot(
@@ -289,7 +289,7 @@ barplot(
   ),
   border = NA,
   xlab = "SMA minus control log2 effect",
-  main = "GSE290980 motor-neuron pseudobulk disease effects"
+  main = ""
 )
 abline(v = 0, col = "grey30")
 dev.off()

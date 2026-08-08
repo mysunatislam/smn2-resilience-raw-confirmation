@@ -303,9 +303,9 @@ top <- atlas_unique[
 top <- head(top[order(-top$c20_log2_enrichment_pc_0_01), ], 20L)
 png(
   file.path(ROOT, "results", "r", "figures", "GSE243076_C20_top_markers.png"),
-  width = 1700,
-  height = 1400,
-  res = 180
+  width = 5667,
+  height = 4667,
+  res = 600
 )
 par(mar = c(5, 10, 4, 2))
 barplot(
@@ -316,7 +316,7 @@ barplot(
   col = "#167D8D",
   border = NA,
   xlab = "C20 log2 enrichment over other neuronal clusters",
-  main = "Independent adult human spinal motor-neuron cluster"
+  main = ""
 )
 dev.off()
 
