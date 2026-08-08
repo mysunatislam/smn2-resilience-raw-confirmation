@@ -1,0 +1,16 @@
+table_id	filename	title
+S1	supplementary_table_S1_candidates.tsv	Frozen cross-model candidates with effects, ranks, robustness, raw confirmation, publication tier, external sensitivity, and cell-resolved annotations
+S2	supplementary_table_S2_summary.tsv	Locked publication scope, integrity counts, tier sizes, and tier gene identities
+S3	supplementary_table_S3_concordance.tsv	Genome-wide raw-versus-processed concordance for GSE290979 disease and treatment contrasts
+S4	supplementary_table_S4_raw_splice_confirmation.tsv	Exact raw splice-confirmation results for all 83 frozen processed events
+S5	supplementary_table_S5_primary_raw_splice_panel.tsv	Raw splice-confirmation results for the frozen 12-event primary panel
+S6	supplementary_table_S6_raw_splice_unconfirmed_reasons.tsv	Per-contrast structural mismatch and limiting reason for every unconfirmed frozen event
+S7	supplementary_table_S7_raw_junction_support.tsv	Sample-level informative junction support for events recovered exactly in both contrasts
+S8	supplementary_table_S8_raw_splice_summary.tsv	Raw splice-confirmation summary
+S9	supplementary_table_S9_raw_splice_provenance.tsv	Raw splice-confirmation provenance, matching scope, and multiplicity control
+S10	supplementary_table_S10_permutation_summary.tsv	Empirical permutation summaries for the frozen directional count and robustness overlap
+S11	supplementary_table_S11_negative_controls.tsv	Direction-reversal and inverse-pattern negative controls
+S12	supplementary_table_S12_score_sensitivity.tsv	Score-variant concordance across nine weighting or aggregation variants
+S13	supplementary_table_S13_candidate_rank_stability.tsv	Frozen candidate rank stability across nine score variants
+S14	supplementary_table_S14_bootstrap_candidate_stability.tsv	Frozen-candidate biological-unit bootstrap selection, direction, and rank stability
+S15	supplementary_table_S15_bootstrap_summary.tsv	Global biological-unit bootstrap summaries

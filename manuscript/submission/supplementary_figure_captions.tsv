@@ -1,0 +1,26 @@
+figure_id	caption
+S1	MDS of TMM-normalized human motor-neuron libraries used for the natural-resistance contrast, colored by oculomotor or spinal identity.
+S2	Genome-wide agreement between the adjusted primary oculomotor-versus-spinal effect and the HiSeq 2000 sensitivity analysis.
+S3	MDS of the control and SMA donor-line pseudobulks used for the disease contrast.
+S4	Component support scores for the top 25 genes in the frozen 37-gene cross-model candidate set.
+S5	Percentile agreement between GSE93939 natural resistance and the independent GSE108094 iPSC motor-neuron SMA-opposition signal, with ranked candidates highlighted.
+S6	Candidate-level support under donor, donor-line, treatment-line, and external dataset holdouts.
+S7	Largest positive and negative SMA-minus-control pseudobulk effects in the annotated motor-neuron population.
+S8	Genes with the strongest expression enrichment in the audited GSE243076 C20 motor-neuron cluster relative to other neuronal clusters.
+S9	Independent adult motor-neuron enrichment plotted against the GSE290980 motor-neuron SMA-minus-control effect for cross-model candidates.
+S10	Effect, false-discovery, biotype, junction-support, and assay components for the 12-event validation panel.
+S11	Top 20 corrected splicing events ranked by the locked validation-priority score and colored by event class. This is processed-data prioritization, not raw junction-level validation.
+S12	Raw four-group junction coverage for MRFAP1 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S13	Raw four-group junction coverage for IFI27L1 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S14	Raw four-group junction coverage for PDE9A using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S15	Raw four-group junction coverage for HERPUD1 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S16	Raw four-group junction coverage for ABCA1 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S17	Raw four-group junction coverage for SAT2 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S18	Raw four-group junction coverage for TNPO2 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S19	Raw four-group junction coverage for SEPTIN11 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S20	Raw four-group junction coverage for FAT3 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S21	Raw four-group junction coverage for MGEA5 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S22	Raw four-group junction coverage for COL5A2 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S23	Raw four-group junction coverage for EIF5 using frozen event coordinates. Missing inclusion levels were not imputed, and plot availability does not imply exact rMATS recovery.
+S24	Empirical null distributions from 10,000 gene-identity permutations for the 37-candidate directional count and 10,000 raw-robustness-label permutations for the four-gene raw/processed robustness overlap. Red lines show observed values.
+S25	Complete-pattern selection frequency for each frozen candidate across 1,000 donor- and donor-line-level bootstrap iterations. Dashed reference lines mark 0.5 and 0.8.

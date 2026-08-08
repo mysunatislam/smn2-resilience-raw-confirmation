@@ -21,6 +21,8 @@ cross-model human motor-neuron resilience analysis.
   biological-unit bootstrap stability.
 - `supplementary_figure_index.tsv`: figure titles, evidence roles, and
   generating R scripts.
+- `supplementary_table_index.tsv`: filenames and titles for Supplementary
+  Tables S1-S15.
 - `supplementary_table_S1_candidates.tsv`: candidate-level effects,
   biological-unit checks, raw confirmation, and external annotations.
 - `supplementary_table_S2_summary.tsv`: locked analysis scope and tier counts.
@@ -51,6 +53,8 @@ From the repository root:
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\06_validate_outputs.R
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\33_cross_model_permutation_sensitivity.R --integration-table=PATH --output-root=PATH
 & 'C:\Program Files\R\R-4.6.0\bin\Rscript.exe' r\34_biological_unit_bootstrap.R --data-root=PATH --integration-table=PATH --output-root=PATH
+& 'C:\path\to\python.exe' scripts\audit_figure_assets.py
+& 'C:\path\to\python.exe' scripts\build_submission_supplement.py --mode review
 ```
 
 The first command requires the completed local9 Salmon outputs under

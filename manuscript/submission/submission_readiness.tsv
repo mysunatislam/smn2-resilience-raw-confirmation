@@ -1,0 +1,17 @@
+item	status	evidence_or_blocker
+Frozen 37-gene framework	PASS	docs/validation_freeze_2026-08-01.md and checksum manifest
+Numerical consistency	PASS	17 executable checks in numerical_consistency_audit.tsv
+Abstract length and keywords	PASS	224 words and 6 keywords
+Reference numbering citations and DOI links	PASS	19 references cited in first-use order with DOI links
+Main and supplementary citation order	PASS	Figures 1-3 supplementary figures S1-S25 and tables S1-S15 cited in order
+Raw gene-level confirmation	PASS	21 raw full-direction 9 raw-unit robust and 4 raw plus processed Tier 1
+Raw splice-junction confirmation	PASS_WITH_NEGATIVE_RESULT	6 of 83 exact structures in both contrasts and 0 fully confirmed
+Functional validation	BLOCKED_NO_EXPERIMENTAL_DATA	No real LY6H HS3ST5 IL17D perturbation measurements are present
+Orthogonal RT-PCR	BLOCKED_NO_EXPERIMENTAL_DATA	No real RT-PCR gel densitometry PSI or Sanger results are present
+Author and declaration metadata	BLOCKED_MISSING_AUTHOR_INPUT	See metadata_required.tsv
+Supplementary machine-readable tables	PASS	Supplementary Tables S1-S15 are tracked TSV files
+Supplementary PDF	PASS_REVIEW_BUILD	output/pdf/supplementary_material_review.pdf contains 27 visually verified pages; final journal metadata remains unavailable
+Figure resolution	PASS	All 28 assets pass figure_asset_audit.tsv; S1-S11 are 600-dpi PNG and the other 17 have vector PDF
+Cover letter	DRAFT_ONLY	Scientific body is drafted; corresponding-author signature and submission declarations are unavailable
+Permanent release and DOI	BLOCKED_PENDING_FINAL_FREEZE	Do not tag or archive an incomplete manuscript; author metadata and wet-lab decision must be resolved first
+Overall submission status	NOT_READY	Functional and RT-PCR evidence are absent and mandatory author-supplied metadata is missing
