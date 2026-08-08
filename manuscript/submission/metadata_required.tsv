@@ -1,0 +1,14 @@
+field	status	required_source
+Author names	MISSING_AUTHOR_INPUT	All authors
+Author order	MISSING_AUTHOR_INPUT	All authors
+Affiliations with department city and country	MISSING_AUTHOR_INPUT	Each author
+Corresponding author name	MISSING_AUTHOR_INPUT	Corresponding author
+Corresponding author institutional email	MISSING_AUTHOR_INPUT	Corresponding author
+ORCID identifiers	MISSING_AUTHOR_INPUT	Each author
+Funding organizations and grant numbers	MISSING_AUTHOR_INPUT	All authors and institutions
+Competing financial and non-financial interests	MISSING_AUTHOR_INPUT	Each author
+CRediT author contributions	MISSING_AUTHOR_INPUT	All authors
+Institutional ethics or exemption determination for secondary public-data analysis	MISSING_AUTHOR_INPUT	Responsible institution
+Acknowledgements	MISSING_AUTHOR_INPUT	All authors
+Submission exclusivity and co-author approval	MISSING_AUTHOR_INPUT	Corresponding author
+Suggested or excluded reviewers	OPTIONAL_AUTHOR_INPUT	Corresponding author

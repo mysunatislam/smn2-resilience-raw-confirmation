@@ -1,0 +1,11 @@
+validation_item	frozen_role	status	evidence_present	allowed_manuscript_claim	completion_requirement
+LY6H functional perturbation	confirmatory candidate 1	NOT_PERFORMED	FALSE	computationally prioritized Tier 1 hypothesis	Independent SMA motor-neuron differentiations with candidate-only, SMN-restoration, and combination conditions; survival plus neurite or axon phenotype
+IL17D functional perturbation	confirmatory candidate 2 in dated freeze	NOT_PERFORMED	FALSE	computationally prioritized Tier 1 hypothesis	Independent SMA motor-neuron differentiations under the frozen success criteria
+HS3ST5 functional perturbation	additional Tier 1 candidate requested after freeze but before functional data	NOT_PERFORMED	FALSE	computationally prioritized Tier 1 hypothesis	Prospective dated amendment that does not replace LY6H or IL17D, followed by independent SMA motor-neuron differentiations
+MRFAP1 RI RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	processed-data hypothesis	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+HERPUD1 A5SS RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	processed-data hypothesis	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+COL5A2 RI RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	raw structure recovered but complete direction rule failed	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+IFI27L1 ES RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	processed-data hypothesis	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+PDE9A ES RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	processed-data hypothesis	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+TNPO2 A3SS RT-PCR	fixed six-event RT-PCR panel	NOT_PERFORMED	FALSE	processed-data hypothesis	Isoform-resolving RT-PCR, Sanger identity check, and biological-unit analysis under the frozen criteria
+STAR-rMATS exact confirmation	frozen 83-event raw analysis	COMPLETED	TRUE	6 of 83 exact structures recovered in both contrasts; 0 fully confirmed	No additional computation can substitute for orthogonal wet-lab validation

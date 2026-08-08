@@ -1,79 +1,56 @@
-# Raw-confirmed cross-model analysis identifies reproducible human motor-neuron resilience candidates in spinal muscular atrophy
+# Cross-model analysis prioritizes reproducible human motor-neuron resilience candidates in spinal muscular atrophy
 
 **Running title:** Cross-model motor-neuron resilience in SMA
 
-**Article type:** Original research
+**Article type:** Original Communication
 
 **Authors and affiliations:** To be supplied before submission
 
 ## Abstract
 
-**Background:** Spinal muscular atrophy (SMA) is caused by deficiency of
-survival motor neuron (SMN) protein, yet motor-neuron populations differ in
-their vulnerability. We asked whether expression directions associated with
-relative human oculomotor-neuron resistance recur as opposing disease changes
-and SMN-directed responses across human SMA models.
+**Background:** Motor-neuron populations differ in their vulnerability to
+survival motor neuron (SMN) deficiency. We tested whether expression directions
+associated with relative human oculomotor-neuron resistance recur across human
+spinal muscular atrophy (SMA) models.
 
-**Methods:** We integrated donor-aware bulk RNA-seq from human post-mortem
-oculomotor and spinal motor neurons (GSE93939), human SMA spinal-cord organoids
-with R6-morpholino treatment (GSE290979), and an independent iPSC-derived SMA
-motor-neuron cohort (GSE108094). GSE69175 provided held-out directional
-sensitivity evidence. GSE290980 and GSE243076 supplied same-study SMA
-cell-resolved context and independent adult spinal motor-neuron localization,
-respectively. Models were fitted within datasets and integrated only after
-effect orientation and HGNC symbol harmonization. Candidate robustness was
-tested by leave-one-donor, leave-one-line, and leave-one-dataset-out analyses.
-Gene-identity permutation, biological-unit cluster bootstrap, negative-control
-direction tests, and score perturbations assessed enrichment and stability
-without random library-level splitting.
-Complete checksum-verified FASTQs from nine pre-specified GSE290979 libraries
-were independently re-quantified from raw reads with Salmon against GENCODE
-v47, followed by donor-line-aware analysis without random sample splitting.
-The same reads were aligned with STAR 2.7.10a, analyzed within the 83 frozen
-event loci with rMATS 4.3.0, and matched exactly to the frozen processed event
-structures.
+**Methods:** Donor-aware analyses integrated GSE93939, GSE290979, and
+GSE108094, with GSE69175 as held-out sensitivity evidence and GSE290980 and
+GSE243076 as cell-resolved context. Candidates were frozen before
+leave-one-unit-out testing. Nine pre-specified GSE290979 FASTQ pairs underwent
+Salmon re-quantification and STAR-rMATS junction analysis. Permutation and
+biological-unit bootstrap analyses tested enrichment and stability without
+random library splitting.
 
-**Results:** Among 11,326 ranked approved genes, 37 met a frozen exploratory
-natural-resistance criterion and the complete cross-model direction pattern.
-Raw and deposited processed effects agreed across 14,636 disease genes
-(Spearman rho 0.778; direction agreement 0.807) and 14,385 treatment genes
-(rho 0.588; direction agreement 0.732). Thirty-five of 37 candidates mapped
-in both raw contrasts, 21 recovered the full raw direction pattern, and nine
-retained that pattern across five disease line omissions and both treatment
-lines. `LY6H`, `HS3ST5`, `ZNF853`, and `IL17D` were unit-robust in both the
-processed and raw analyses. Five additional genes were raw-unit robust and
-three retained processed-unit robustness. No candidate was supported by all
-robustness, GSE69175, and motor-neuron-specific disease annotations.
-Targeted raw splice analysis recovered six of 83 frozen events in both
-contrasts and one of 12 primary events. No event met the complete
-disease-direction, treatment-reversal, and two-line correction criterion.
-The 37-gene count was not enriched under gene-identity permutation
-(`p = 0.836`), whereas the four-gene overlap between processed- and
-raw-unit-robust sets was greater than expected after robustness-label
-permutation (`p = 0.044`). The four Tier 1 genes were selected in 89.8-95.9%
-of 1,000 biological-unit bootstrap iterations.
+**Results:** No oculomotor-positive gene survived donor-aware false-discovery
+correction. Among 11,326 ranked approved genes, 37 met the frozen cross-model
+pattern. Of 35 candidates mapped in both raw contrasts, 21 recovered the full
+raw direction pattern, and nine were raw-unit robust. `LY6H`, `HS3ST5`,
+`ZNF853`, and `IL17D` were robust in both raw and processed analyses. The
+37-gene count was not permutation-enriched (`p = 0.836`), whereas the
+four-gene robustness overlap exceeded the label-permutation expectation
+(`p = 0.044`). Tier 1 bootstrap selection frequencies were 89.8-95.9%.
+Targeted raw analysis recovered six of 83 frozen events in both contrasts. No
+event met the complete disease-direction, treatment-reversal, and two-line
+correction rule.
 
-**Conclusions:** Complementary human models nominate a small, reproducible set
-of resilience-associated hypotheses while revealing substantial
-model-specific biology. The results prioritize genes for experimental
-perturbation but do not establish neuroprotection, therapeutic efficacy, or
-SMN2 splice correction. The limited raw splice recovery constrains the
-processed splicing claim and prioritizes orthogonal RT-PCR validation.
+**Conclusions:** The four Tier 1 genes are reproducible experimental
+hypotheses, not established protective or therapeutic targets. The processed
+splicing panel remains hypothesis-generating and requires orthogonal RT-PCR
+validation.
 
 **Keywords:** spinal muscular atrophy; motor neuron; oculomotor neuron;
-resilience; RNA sequencing; raw-read re-quantification; donor-aware analysis;
-SMN
+resilience; RNA sequencing; reproducibility
 
 ## Introduction
 
 Spinal muscular atrophy is an inherited motor-neuron disease caused by loss or
-mutation of `SMN1`. The paralog `SMN2` produces insufficient full-length SMN
-protein because most transcripts exclude exon 7. SMN-restoring therapies have
-changed clinical care, but incomplete response and the selective vulnerability
-of motor neurons motivate investigation of additional disease-modifying
-programs.
+mutation of `SMN1` [1]. The paralog `SMN2` produces insufficient full-length
+SMN protein because most transcripts exclude exon 7 [2]. SMN-restoring
+therapies have changed clinical care [3], but incomplete response and the
+selective vulnerability of motor neurons motivate investigation of additional
+disease-modifying programs.
 
-Motor-neuron populations are not equally vulnerable to degeneration.
+Motor-neuron populations are not equally vulnerable to degeneration [4, 5].
 Oculomotor neurons are relatively resistant in several motor-neuron diseases,
 whereas spinal motor neurons are prominently affected. Expression differences
 between these populations can therefore provide a natural-resistance prior.
@@ -100,33 +77,33 @@ power, cell mixing, and same-study dependence explicit.
 
 ### Study design and datasets
 
-All analyzed datasets were Homo sapiens. GSE93939 contained 39
+All analyzed datasets were Homo sapiens. GSE93939 [4, 5] contained 39
 laser-capture RNA-seq libraries from post-mortem oculomotor, spinal, and
 Onuf's nucleus motor neurons. The primary oculomotor-versus-spinal comparison
-used 32 libraries from 19 donors. GSE290979 contained 31 bulk RNA-seq
+used 32 libraries from 19 donors. GSE290979 [6] contained 31 bulk RNA-seq
 libraries from spinal-cord organoids generated from three control and two SMA
 type I donor lines, including R6-morpholino and scramble-treated organoids from
 two SMA lines. These were the two core datasets satisfying the pre-specified
 20-library threshold.
 
-GSE108094 contained eight iPSC-derived spinal motor-neuron libraries from two
+GSE108094 [7] contained eight iPSC-derived spinal motor-neuron libraries from two
 control and two SMA lines and served as independent disease-direction
-validation. GSE69175 contained two libraries from one control line and two
+validation. GSE69175 [8] contained two libraries from one control line and two
 from one SMA type I line after motor-neuron purification. Because genotype was
 completely confounded with line, GSE69175 was used only as held-out
 directional sensitivity evidence.
 
 GSE290980 was the single-cell arm linked to GSE290979 and was used to localize
 SMA-associated effects to author-defined cell types, including motor neurons.
-It was not labeled independent. GSE243076 was an independent adult human
+It was not labeled independent. GSE243076 [9] was an independent adult human
 spinal-cord single-nucleus atlas from nine donors and was used to assess
 candidate detection and localization in the `CHAT`/`SLC5A7` motor-neuron
 cluster, not SMA disease direction.
 
 ### Dataset-specific expression models
 
-GSE93939 counts were TMM-normalized and modeled with limma-voom quality
-weights. The model adjusted for sex, age, post-mortem delay, tissue source,
+GSE93939 counts were TMM-normalized and modeled with voom and limma quality
+weights [10, 11]. The model adjusted for sex, age, post-mortem delay, tissue source,
 and sequencing platform and accounted for repeated libraries from donors.
 Sensitivity analyses used 25 HiSeq 2000 libraries and 13 same-platform donor
 pseudobulks.
@@ -134,7 +111,7 @@ pseudobulks.
 For GSE290979, technical preparations were summed within donor-line
 conditions. The untreated disease contrast used five donor-line pseudobulks
 (three control and two SMA). The R6-morpholino versus scramble contrast used
-two paired SMA donor lines. edgeR models reported effect sizes, nominal
+two paired SMA donor lines. edgeR models [12] reported effect sizes, nominal
 probabilities, and false-discovery rates. The treatment lines were also
 evaluated separately because leaving out either of two lines eliminates
 residual biological replication.
@@ -213,10 +190,10 @@ from the median read-pair count within a line-condition, with run accession as
 a deterministic tie-breaker. The selected input totaled 82.193 GiB.
 
 Both paired FASTQ files for every selected library were downloaded from ENA
-and required to match deposited MD5 values. Salmon 1.10.2 quantified complete
-paired reads against the GENCODE v47 transcriptome using automatic library
+and required to match deposited MD5 values. Salmon 1.10.2 [13] quantified complete
+paired reads against the GENCODE v47 transcriptome [14] using automatic library
 detection, validated mappings, sequence-bias correction, and GC-bias
-correction. Transcript estimates were summarized to genes with tximport using
+correction. Transcript estimates were summarized to genes with tximport [15] using
 `countsFromAbundance="lengthScaledTPM"`.
 
 The raw gene matrix was analyzed with the same five-line disease and paired
@@ -233,9 +210,9 @@ paralog-specific `SMN1`/`SMN2` quantification.
 ### Targeted raw splice-junction confirmation
 
 The same nine complete FASTQ pairs were aligned at full depth to GRCh38 with
-STAR 2.7.10a using the GENCODE v47 annotation. Coordinate-sorted BAMs were
+STAR 2.7.10a [16] using the GENCODE v47 annotation. Coordinate-sorted BAMs were
 preserved; BAMs restricted to the 83 frozen event loci plus 1 kb flanks were
-used for splice analysis. FastQC/MultiQC, STAR, samtools, rMATS, and
+used for splice analysis. samtools [17], rMATS [18], FastQC, MultiQC [19], and
 rmats2sashimiplot versions were pinned.
 
 Fixed-event rMATS runs returned empty MATS tables despite direct STAR
@@ -271,13 +248,20 @@ candidate identities, raw concordance statistics, frozen ranks, publication
 scope, permutation and bootstrap outputs, and absence of random analytical
 splits.
 
+Candidate-level evidence is provided in Supplementary Table S1, with locked
+scope in Supplementary Table S2 and raw-expression concordance in
+Supplementary Table S3. Raw splice results and provenance are reported in
+Supplementary Tables S4-S9, permutation and score-sensitivity outputs in
+Supplementary Tables S10-S13, and bootstrap outputs in Supplementary Tables
+S14-S15.
+
 ## Results
 
 ### Donor-aware analysis limits single-dataset claims
 
 No GSE93939 oculomotor-positive gene reached FDR below 0.05 in the adjusted
 primary model, and neither primary GSE290979 expression contrast produced a
-donor-line-level FDR hit. These results discouraged hit-list interpretation
+donor-line-level FDR hit (Supplementary Figures S1-S3). These results discouraged hit-list interpretation
 of either core dataset. The processed GSE290979 splicing audit identified 83
 strict corrected events across 74 genes. These were treated as processed-data
 claims and tested against the frozen raw junction workflow below.
@@ -289,12 +273,19 @@ the complete resilience direction and 468 followed the inverse pattern.
 Thirty-seven resilience-direction genes also met the frozen exploratory
 GSE93939 criterion. Genome-wide cross-model correlations were weak
 (`|rho| < 0.12`), indicating that the intersection represented focused
-directional recurrence rather than a shared global transcriptomic program.
+directional recurrence rather than a shared global transcriptomic program
+(Supplementary Figures S4-S5).
 
 Seven of 37 candidates passed every estimable processed biological-unit check:
 `LY6H`, `HS3ST5`, `ZNF853`, `PNCK`, `IL17D`, `CLPTM1`, and `PDPR`.
 Six different genes had GSE69175 disease-opposition support: `ROBO2`, `ATP9B`,
 `HEY1`, `LRRC4`, `SPIN1`, and `EIF4ENIF1`. The sets did not overlap.
+Biological-unit and dataset holdouts are summarized in Supplementary Figure S6.
+Cell-resolved disease and localization context is shown in Supplementary
+Figures S7-S9. The 83 processed-data splice events and 12-event assay panel
+remained hypothesis-generating (Supplementary Figures S10-S11). Raw junction
+coverage for all 12 frozen primary structures is shown in Supplementary Figures
+S12-S23; visualization alone was not counted as confirmation.
 
 ### Permutation distinguishes shortlist size from robustness overlap
 
@@ -519,7 +510,9 @@ framework. Targeted raw junction analysis did not confirm the full processed
 splicing panel. These results are not evidence that any gene protects patients
 or increases full-length SMN2 protein.
 
-## Data and Code Availability
+## Statements and Declarations
+
+### Data and Code Availability
 
 All source sequencing datasets are publicly available through NCBI GEO under
 GSE93939, GSE290979, GSE108094, GSE69175, GSE290980, and GSE243076. Raw
@@ -535,22 +528,35 @@ outputs are excluded from Git. Their checksums, provenance contracts, and
 regeneration commands are included in the repository. Verified FASTQs and
 existing BAMs used locally were preserved after analysis.
 
-## Ethics Statement
+### Ethics Approval
 
 This study re-analyzed publicly available, de-identified datasets. No new
 human participants or animals were enrolled.
 
-## Competing Interests
+### Consent to Participate and Publish
 
-To be completed by the authors before submission.
+No identifiable participant information is reported. Consent and ethics
+requirements for the source specimens were handled by the original studies.
 
-## Funding
+### Competing Interests
 
-To be completed by the authors before submission.
+Author confirmation is required before submission; no disclosure statement
+has been inferred.
 
-## Author Contributions
+### Funding
 
-To be completed by the authors before submission.
+Author confirmation is required before submission; no funding statement has
+been inferred.
+
+### Author Contributions
+
+Author roles must be supplied and approved by every listed author before
+submission.
+
+### Acknowledgements
+
+The authors must confirm any non-author contributions and acknowledgements
+before submission.
 
 ## Figure Legends
 
@@ -693,29 +699,63 @@ bootstrap summaries.
 
 ## References
 
-1. NCBI GEO GSE93939. RNA-seq of laser-captured human oculomotor, spinal, and
-   Onuf's nucleus motor neurons. PubMed: 31080111; 32065260.
-2. NCBI GEO GSE290979 and GSE290980. Targeted antisense oligonucleotide
-   treatment rescues developmental alterations in spinal muscular atrophy
-   organoids. PubMed: 41423447.
-3. NCBI GEO GSE108094. Next-generation sequencing of human SMA and healthy
-   control motor neurons. PubMed: 30649277.
-4. NCBI GEO GSE69175. Selective death in spinal muscular atrophy: genome-wide
-   RNA-seq using purified patient-derived motor neurons. PubMed: 26321202.
-5. NCBI GEO GSE243076. Spatial transcriptomics and single-nucleus RNA
-   sequencing reveal a transcriptomic atlas of human spinal cord. PubMed:
-   38289829; 38934400.
-6. Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for
-   differential expression analysis of digital gene expression data.
-   Bioinformatics. 2010.
-7. Law CW, Chen Y, Shi W, Smyth GK. voom: precision weights unlock linear
-   model analysis tools for RNA-seq read counts. Genome Biology. 2014.
-8. Ritchie ME, et al. limma powers differential expression analyses for
-   RNA-sequencing and microarray studies. Nucleic Acids Research. 2015.
-9. Patro R, Duggal G, Love MI, Irizarry RA, Kingsford C. Salmon provides fast
-   and bias-aware quantification of transcript expression. Nature Methods.
-   2017.
-10. Soneson C, Love MI, Robinson MD. Differential analyses for RNA-seq:
-    transcript-level estimates improve gene-level inferences. F1000Research.
-    2015.
-11. Frankish A, et al. GENCODE 2021. Nucleic Acids Research. 2021.
+1. Lefebvre S, Burglen L, Reboullet S et al (1995) Identification and
+   characterization of a spinal muscular atrophy-determining gene. Cell
+   80:155-165. https://doi.org/10.1016/0092-8674(95)90460-3
+2. Lorson CL, Hahnen E, Androphy EJ, Wirth B (1999) A single nucleotide in the
+   SMN gene regulates splicing and is responsible for spinal muscular atrophy.
+   Proc Natl Acad Sci U S A 96:6307-6311.
+   https://doi.org/10.1073/pnas.96.11.6307
+3. Finkel RS, Mercuri E, Darras BT et al (2017) Nusinersen versus sham control
+   in infantile-onset spinal muscular atrophy. N Engl J Med 377:1723-1732.
+   https://doi.org/10.1056/NEJMoa1702752
+4. Allodi I, Nijssen J, Aguila Benitez J et al (2019) Modeling motor neuron
+   resilience in ALS using stem cells. Stem Cell Reports 12:1329-1341.
+   https://doi.org/10.1016/j.stemcr.2019.04.009
+5. Nizzardo M, Taiana M, Rizzo F et al (2020) Synaptotagmin 13 is
+   neuroprotective across motor neuron diseases. Acta Neuropathol 139:837-853.
+   https://doi.org/10.1007/s00401-020-02133-x
+6. Faravelli I, Rinchetti P, Tambalo M et al (2026) Targeted antisense
+   oligonucleotide treatment rescues developmental alterations in spinal
+   muscular atrophy organoids. Nat Commun 17:988.
+   https://doi.org/10.1038/s41467-025-67725-1
+7. Rizzo F, Nizzardo M, Vashisht S et al (2019) Key role of SMN/SYNCRIP and
+   RNA-Motif 7 in spinal muscular atrophy: RNA-Seq and motif analysis of human
+   motor neurons. Brain 142:276-294. https://doi.org/10.1093/brain/awy330
+8. Ng SY, Soh BS, Rodriguez-Muela N et al (2015) Genome-wide RNA-Seq of human
+   motor neurons implicates selective ER stress activation in spinal muscular
+   atrophy. Cell Stem Cell 17:569-584.
+   https://doi.org/10.1016/j.stem.2015.08.003
+9. Zhang D, Chen Y, Wei Y et al (2024) Spatial transcriptomics and
+   single-nucleus RNA sequencing reveal a transcriptomic atlas of adult human
+   spinal cord. eLife 12:RP92046. https://doi.org/10.7554/eLife.92046.2
+10. Law CW, Chen Y, Shi W, Smyth GK (2014) voom: precision weights unlock
+    linear model analysis tools for RNA-seq read counts. Genome Biol 15:R29.
+    https://doi.org/10.1186/gb-2014-15-2-r29
+11. Ritchie ME, Phipson B, Wu D et al (2015) limma powers differential
+    expression analyses for RNA-sequencing and microarray studies. Nucleic
+    Acids Res 43:e47. https://doi.org/10.1093/nar/gkv007
+12. Robinson MD, McCarthy DJ, Smyth GK (2010) edgeR: a Bioconductor package for
+    differential expression analysis of digital gene expression data.
+    Bioinformatics 26:139-140. https://doi.org/10.1093/bioinformatics/btp616
+13. Patro R, Duggal G, Love MI, Irizarry RA, Kingsford C (2017) Salmon provides
+    fast and bias-aware quantification of transcript expression. Nat Methods
+    14:417-419. https://doi.org/10.1038/nmeth.4197
+14. Frankish A, Diekhans M, Jungreis I et al (2021) GENCODE 2021. Nucleic
+    Acids Res 49:D916-D923. https://doi.org/10.1093/nar/gkaa1087
+15. Soneson C, Love MI, Robinson MD (2015) Differential analyses for RNA-seq:
+    transcript-level estimates improve gene-level inferences. F1000Research
+    4:1521. https://doi.org/10.12688/f1000research.7563.2
+16. Dobin A, Davis CA, Schlesinger F et al (2013) STAR: ultrafast universal
+    RNA-seq aligner. Bioinformatics 29:15-21.
+    https://doi.org/10.1093/bioinformatics/bts635
+17. Li H, Handsaker B, Wysoker A et al (2009) The Sequence Alignment/Map format
+    and SAMtools. Bioinformatics 25:2078-2079.
+    https://doi.org/10.1093/bioinformatics/btp352
+18. Shen S, Park JW, Lu ZX et al (2014) rMATS: robust and flexible detection of
+    differential alternative splicing from replicate RNA-Seq data. Proc Natl
+    Acad Sci U S A 111:E5593-E5601.
+    https://doi.org/10.1073/pnas.1419161111
+19. Ewels P, Magnusson M, Lundin S, Kaller M (2016) MultiQC: summarize analysis
+    results for multiple tools and samples in a single report. Bioinformatics
+    32:3047-3048. https://doi.org/10.1093/bioinformatics/btw354

@@ -1,0 +1,11 @@
+check_id	expected	observed	pass	details
+abstract_word_count	150-250	224	TRUE	
+keyword_count	4-6	6	TRUE	
+reference_number_sequence	1-19	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19	TRUE	
+reference_doi_links	19/19	19/19	TRUE	
+in_text_citation_order	1-19	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19	TRUE	
+all_references_cited	1-19	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19	TRUE	
+main_figure_citation_order	1,2,3	1,2,3	TRUE	
+supplementary_figure_citation_order	1-25	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25	TRUE	
+supplementary_table_citation_order	1-15	1,2,3,4,5,6,7,8,9,10,11,12,13,14,15	TRUE	
+original_communication_word_limit	<=9000	4821	TRUE	Approximate count excludes the reference list but includes abstract, legends, and declarations.

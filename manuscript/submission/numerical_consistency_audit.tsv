@@ -1,0 +1,18 @@
+check_id	category	source	expected	observed	pass	details
+ranked_gene_universe	numerical	Supplementary Table S12	11326	11326	TRUE	
+frozen_candidate_count	numerical	Supplementary Tables S1 and S2	37	37	TRUE	
+raw_full_direction_count	numerical	Supplementary Tables S1 and S2	21	21	TRUE	
+raw_unit_robust_count	numerical	Supplementary Tables S1 and S2	9	9	TRUE	
+tier_1_count_and_identity	numerical	Supplementary Tables S1 and S2	LY6H,HS3ST5,ZNF853,IL17D	LY6H,HS3ST5,ZNF853,IL17D	TRUE	
+candidate_count_permutation_p	numerical	Supplementary Table S10	0.835716428357164	0.835716428357164	TRUE	
+robustness_overlap_permutation_p	numerical	Supplementary Table S10	0.0440955904409559	0.0440955904409559	TRUE	
+tier_1_bootstrap_range	numerical	Supplementary Table S14	0.898-0.959	0.898-0.959	TRUE	
+raw_splice_exact_recovery	numerical	Supplementary Table S4	6/83	6/83	TRUE	
+raw_splice_full_confirmation	numerical	Supplementary Table S4	0	0	TRUE	
+manuscript_ranked_to_frozen	manuscript	manuscript/manuscript.md	11,326 ranked approved genes, 37	11,326 ranked approved genes, 37	TRUE	
+manuscript_raw_direction_and_robustness	manuscript	manuscript/manuscript.md	21 recovered the full raw direction pattern, and nine	21 recovered the full raw direction pattern, and nine	TRUE	
+manuscript_permutation_p	manuscript	manuscript/manuscript.md	p = 0.836	p = 0.836	TRUE	
+manuscript_overlap_p	manuscript	manuscript/manuscript.md	p = 0.044	p = 0.044	TRUE	
+manuscript_bootstrap_range	manuscript	manuscript/manuscript.md	89.8-95.9%	89.8-95.9%	TRUE	
+manuscript_splice_recovery	manuscript	manuscript/manuscript.md	six of 83 frozen events	six of 83 frozen events	TRUE	
+manuscript_splice_failure	manuscript	manuscript/manuscript.md	No event met the complete	No event met the complete	TRUE	
